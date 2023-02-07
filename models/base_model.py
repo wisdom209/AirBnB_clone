@@ -1,0 +1,59 @@
+#!/usr/bin/python3
+""" The module defines the BaseModel class"""
+from uuid import uuid4
+from datetime import datetime
+import models
+
+
+class BaseModel:
+    """defines all common attributes/methods for other classes"""
+
+    def __init__(self, *args, **kwargs):
+        """
+        Arguments:
+            id (str) - public instance with a unique value
+            created_at - holds current date and time when created
+            updated_at - holds current date and time when updated
+            *args: unused
+            **kwargs - dict representation of key/value pairs
+        """
+        tf = "%Y-%m-%dT%H:%M:%S.%f"
+
+        if kwargs is not None and len(kwargs) != 0:
+            if "__class" in kwargs:
+                del kwargs["__class__"]
+            kwargs['created_at'] = datetime.fromisoformat(str(kwargs['created_at']))
+            kwargs['updated_at'] = datetime.fromisoformat(str(kwargs['updated_at']))
+            self.__dict__.update(kwargs)
+        else:
+            self.id = str(uuid4())
+            self.created_at = datetime.today()
+            self.updated_at = datetime.today()
+            models.storage.new(self)
+
+    def save(self):
+        """
+        updates the public instance attribute updated_at with
+        the current datetime
+        """
+        self.updated_at = datetime.today()
+        models.storage.save()
+
+    def to_dict(self):
+        """
+        returns a dictionary containing all keys/values
+        of __dict__ of the instances.
+        """
+        ret_dict = self.__dict__.copy()
+        ret_dict["__class__"] = self.__class__.__name__
+        ret_dict["create_at"] = self.created_at.isoformat()
+        ret_dict["updated_at"] = self.updated_at.isoformat()
+        return ret_dict
+
+    def __str__(self):
+        """
+        prints string representation of instance attributes
+        """
+        clasname = self.__class__.__name__
+        return "[{}] ({}) {}".format(clasname, self.id, self.__dict__)
+
