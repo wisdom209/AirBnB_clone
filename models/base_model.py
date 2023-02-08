@@ -58,5 +58,5 @@ class BaseModel:
         """
         prints string representation of instance attributes
         """
-        clasname = self.__class__.__name__
-        return "[{}] ({}) {}".format(clasname, self.id, self.__dict__)
+        classname = self.__class__.__name__
+        return "[{}] ({}) {}".format(classname, self.id, self.__dict__)

@@ -33,7 +33,6 @@ class FileStorage:
     def reload(self):
         """deserializes the JSON file to __objects if __file_path exists"""
         try:
-
             with open(FileStorage.__file_path, "r", encoding='UTF-8') as fp:
                 objdict = json.loads(fp.read())
 
