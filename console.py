@@ -2,6 +2,12 @@
 """Defines the console.py module with class HBNBCommand"""
 import cmd
 from models.base_model import BaseModel
+from models.user import User
+from models.city import City
+from models.state import State
+from models.amenity import Amenity
+from models.place import Place
+from models.review import Review
 
 
 class HBNBCommand(cmd.Cmd):
@@ -11,6 +17,8 @@ class HBNBCommand(cmd.Cmd):
     """
 
     prompt = "(hbnb) "
+    clasname = ("BaseModel", "User", "City", "State",
+            "Amenity", "Place", "Review")
 
     def do_quit(self, line):
         """quit command to exit from the interprter"""
