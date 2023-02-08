@@ -147,7 +147,6 @@ class HBNBCommand(cmd.Cmd):
 		id = None
 		attr_name = None
 		attr_value = None
-		args_used = [class_name, id, attr_name, attr_value]
 		args = line.split()
 		tot_args = len(args)
 
@@ -162,12 +161,12 @@ class HBNBCommand(cmd.Cmd):
 				attr_value = args[3]
 
 		if class_name:
-			if class_name != "BaseModel":
+			if class_name not in self.class_tuple:
 				print("*** class doesn't exist ***")
 			else:
 				if id:
 					obj = FileStorage()
-					full_key = f"BaseModel.{id}"
+					full_key = f"{class_name}.{id}"
 
 					if full_key in obj.all().keys():
 						if not attr_name:
