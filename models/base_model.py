@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 """ The module defines the BaseModel class"""
+import copy
 from uuid import uuid4
 from datetime import datetime
 import models
@@ -22,8 +23,10 @@ class BaseModel:
         if kwargs is not None and len(kwargs) != 0:
             if "__class" in kwargs:
                 del kwargs["__class__"]
-            kwargs['created_at'] = datetime.fromisoformat(str(kwargs['created_at']))
-            kwargs['updated_at'] = datetime.fromisoformat(str(kwargs['updated_at']))
+            kwargs['created_at'] = datetime.fromisoformat(
+                str(kwargs['created_at']))
+            kwargs['updated_at'] = datetime.fromisoformat(
+                str(kwargs['updated_at']))
             self.__dict__.update(kwargs)
         else:
             self.id = str(uuid4())
@@ -44,9 +47,10 @@ class BaseModel:
         returns a dictionary containing all keys/values
         of __dict__ of the instances.
         """
-        ret_dict = self.__dict__.copy()
+
+        ret_dict = copy.deepcopy(self.__dict__)
         ret_dict["__class__"] = self.__class__.__name__
-        ret_dict["create_at"] = self.created_at.isoformat()
+        ret_dict["created_at"] = self.created_at.isoformat()
         ret_dict["updated_at"] = self.updated_at.isoformat()
         return ret_dict
 
@@ -56,4 +60,3 @@ class BaseModel:
         """
         clasname = self.__class__.__name__
         return "[{}] ({}) {}".format(clasname, self.id, self.__dict__)
-
