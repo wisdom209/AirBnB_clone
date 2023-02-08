@@ -2,6 +2,12 @@
 """Defines the FileStorage class"""
 from models.base_model import BaseModel
 import json
+from models.user import User
+from models.city import City
+from models.state import State
+from models.amenity import Amenity
+from models.place import Place
+from models.review import Review
 
 
 class FileStorage:
@@ -37,8 +43,21 @@ class FileStorage:
                 objdict = json.loads(fp.read())
 
             for key, value in objdict.items():
-                obj = BaseModel(**value)
-                FileStorage.__objects[key] = obj
+                if value["__class__"] == "BaseModel":
+                    obj = BaseModel(**value)
+                    FileStorage.__objects[key] = obj
+                elif value["__class__"] == "User":
+                    FileStorage.__objects[key] = User(**value)
+                elif value["__class__"] == "Place":
+                    FileStorage.__objects[key] = Place(**value)
+                elif value["__class__"] == "State":
+                    FileStorage.__objects[key] = State(**value)
+                elif value["__class__"] == "City":
+                    FileStorage.__objects[key] = State(**value)
+                elif value["__class__"] == "Amenity":
+                    FileStorage.__objects[key] = Amenity(**value)
+                elif value["__class__"] == "Review":
+                    FileStorage.__objects[key] = Review(**value)
 
         except FileNotFoundError:
             pass
