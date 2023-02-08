@@ -1,8 +1,7 @@
 #!/usr/bin/python3
 """Defines review module"""
 from models.base_model import BaseModel
-import copy
-import models
+from models import helper_functions
 
 
 class Review(BaseModel):
@@ -21,21 +20,10 @@ class Review(BaseModel):
 
     @staticmethod
     def all():
-        """Get all Reviews"""
-        obj = models.FileStorage()
-        new_obj_dict = copy.deepcopy(obj.all())
-
-        new_obj_dict = {
-            k: v for k, v in new_obj_dict.items()
-            if k.startswith('Review')}
-
-        for value in new_obj_dict.values():
-            if '__class__' in value.__dict__.keys():
-                del value.__dict__['__class__']
-        obj_dict = [str(x) for x in new_obj_dict.values()]
-        return obj_dict
+        """Get all class instances"""
+        return helper_functions.get_all("Review")
 
     @staticmethod
     def count():
-        """Count all Reviews"""
-        return len(Review.all())
+        """Count all class instances"""
+        return helper_functions.get_all_count(Review)

@@ -1,8 +1,7 @@
 #!/usr/bin/python3
 """"Defines User module"""
-import copy
 from models.base_model import BaseModel
-import models
+from models import helper_functions
 
 
 class User(BaseModel):
@@ -20,24 +19,11 @@ class User(BaseModel):
     first_name = ""
     last_name = ""
 
-    @staticmethod
     def all():
-        """Get all Users"""
-        obj = models.FileStorage()
-        new_obj_dict = copy.deepcopy(obj.all())
-
-        new_obj_dict = {
-            k: v for k, v in new_obj_dict.items()
-            if k.startswith('User')}
-
-        for value in new_obj_dict.values():
-            if '__class__' in value.__dict__.keys():
-                del value.__dict__['__class__']
-        obj_dict = [str(x) for x in new_obj_dict.values()]
-
-        return obj_dict
+        """Get all instances"""
+        return helper_functions.get_all("User")
 
     @staticmethod
     def count():
-        """Count all Users"""
-        return len(User.all())
+        """Count all class instances"""
+        return helper_functions.get_all_count(User)

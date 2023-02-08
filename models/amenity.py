@@ -1,8 +1,7 @@
 #!/usr/bin/python3
 """Defines Amenity module"""
 from models.base_model import BaseModel
-import models
-import copy
+from models import helper_functions
 
 
 class Amenity(BaseModel):
@@ -17,21 +16,10 @@ class Amenity(BaseModel):
 
     @staticmethod
     def all():
-        """Get all Amenities"""
-        obj = models.FileStorage()
-        new_obj_dict = copy.deepcopy(obj.all())
-
-        new_obj_dict = {
-            k: v for k, v in new_obj_dict.items()
-            if k.startswith('Amenity')}
-
-        for value in new_obj_dict.values():
-            if '__class__' in value.__dict__.keys():
-                del value.__dict__['__class__']
-        obj_dict = [str(x) for x in new_obj_dict.values()]
-        return obj_dict
+        """Get all instances"""
+        return helper_functions.get_all("Amenity")
 
     @staticmethod
     def count():
-        """Count all Amenities"""
-        return len(Amenity.all())
+        """Count all class instances"""
+        return helper_functions.get_all_count(Amenity)

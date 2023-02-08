@@ -4,6 +4,7 @@ import copy
 from uuid import uuid4
 from datetime import datetime
 import models
+from models import helper_functions
 
 
 class BaseModel:
@@ -63,22 +64,10 @@ class BaseModel:
 
     @staticmethod
     def all():
-        """Get all from BaseModel"""
-        obj = models.FileStorage()
-        new_obj_dict = copy.deepcopy(obj.all())
-
-        new_obj_dict = {
-            k: v for k, v in new_obj_dict.items()
-            if k.startswith('BaseModel')}
-
-        for value in new_obj_dict.values():
-            if '__class__' in value.__dict__.keys():
-                del value.__dict__['__class__']
-        obj_dict = [str(x) for x in new_obj_dict.values()]
-
-        return obj_dict
+        """Get all instances"""
+        return helper_functions.get_all("BaseModel")
 
     @staticmethod
     def count():
-        """Count all BaseModels"""
-        return len(BaseModel.all())
+        """Count all class instances"""
+        return helper_functions.get_all_count(BaseModel)

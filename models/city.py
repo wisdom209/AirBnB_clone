@@ -1,8 +1,7 @@
 #!/usr/bin/pythn3
 """Defines City module"""
 from models.base_model import BaseModel
-import copy
-import models
+from models import helper_functions
 
 
 class City(BaseModel):
@@ -19,22 +18,10 @@ class City(BaseModel):
 
     @staticmethod
     def all():
-        """Get all Cities"""
-        obj = models.FileStorage()
-        new_obj_dict = copy.deepcopy(obj.all())
-
-        new_obj_dict = {
-            k: v for k, v in new_obj_dict.items()
-            if k.startswith('City')}
-
-        for value in new_obj_dict.values():
-            if '__class__' in value.__dict__.keys():
-                del value.__dict__['__class__']
-        obj_dict = [str(x) for x in new_obj_dict.values()]
-
-        return obj_dict
+        """Get all class instances"""
+        return helper_functions.get_all("City")
 
     @staticmethod
     def count():
-        """Count all Cities"""
-        return len(City.all())
+        """Count all class instances"""
+        return helper_functions.get_all_count(City)
