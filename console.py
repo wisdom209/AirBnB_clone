@@ -97,7 +97,7 @@ class HBNBCommand(cmd.Cmd):
                 instance_id = args[1]
 
         if class_name:
-            if class_name != "BaseModel":
+            if class_name not in self.class_tuple:
                 print("** class doesn't exist **")
             else:
                 if not instance_id:
@@ -105,7 +105,7 @@ class HBNBCommand(cmd.Cmd):
 
                 if instance_id:
                     obj = FileStorage()
-                    full_key = f"BaseModel.{instance_id}"
+                    full_key = f"{class_name}.{instance_id}"
 
                     if full_key in obj.all().keys():
                         del obj.all()[full_key]
