@@ -10,11 +10,12 @@ class State(BaseModel):
     Inherits from BaseModel and defines state class attributes
 
     Argument:
-        name (str) - empty string
+            name (str) - empty string
     """
 
     name = ""
 
+    @staticmethod
     def all():
         """Get all States"""
         obj = models.FileStorage()
@@ -28,4 +29,10 @@ class State(BaseModel):
             if '__class__' in value.__dict__.keys():
                 del value.__dict__['__class__']
         obj_dict = [str(x) for x in new_obj_dict.values()]
-        print(obj_dict)
+
+        return obj_dict
+
+    @staticmethod
+    def count():
+        """Count all Reviews"""
+        return len(State.all())

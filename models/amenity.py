@@ -10,11 +10,12 @@ class Amenity(BaseModel):
     inherits from BaseModel and defines Amenity class attributes
 
     Argument:
-        name (str) - empty string
+            name (str) - empty string
     """
 
     name = ""
 
+    @staticmethod
     def all():
         """Get all Amenities"""
         obj = models.FileStorage()
@@ -28,4 +29,9 @@ class Amenity(BaseModel):
             if '__class__' in value.__dict__.keys():
                 del value.__dict__['__class__']
         obj_dict = [str(x) for x in new_obj_dict.values()]
-        print(obj_dict)
+        return obj_dict
+
+    @staticmethod
+    def count():
+        """Count all Amenities"""
+        return len(Amenity.all())

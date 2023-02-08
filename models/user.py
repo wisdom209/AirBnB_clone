@@ -10,16 +10,17 @@ class User(BaseModel):
     assigns public class attributes that defines users
 
     Arguments:
-                    emails (str) - empty string
-                    password (str) - empty string
-                    first_name (str) - empty string
-                    last_name (str) - empty string
+                emails (str) - empty string
+                password (str) - empty string
+                first_name (str) - empty string
+                last_name (str) - empty string
     """
     email = ""
     password = ""
     first_name = ""
     last_name = ""
 
+    @staticmethod
     def all():
         """Get all Users"""
         obj = models.FileStorage()
@@ -33,4 +34,10 @@ class User(BaseModel):
             if '__class__' in value.__dict__.keys():
                 del value.__dict__['__class__']
         obj_dict = [str(x) for x in new_obj_dict.values()]
-        print(obj_dict)
+
+        return obj_dict
+
+    @staticmethod
+    def count():
+        """Count all Users"""
+        return len(User.all())

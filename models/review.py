@@ -10,15 +10,16 @@ class Review(BaseModel):
     inherits from BaseModel and defines the Review class attributes
 
     Arguments:
-        place_id (str) - empty string: it will be the Place.id
-        user_id (str) - empty string: it will be the User.id
-        text (str) - empty string
+                    place_id (str) - empty string: it will be the Place.id
+                    user_id (str) - empty string: it will be the User.id
+                    text (str) - empty string
     """
 
     place_id = ""
     user_id = ""
     text = ""
 
+    @staticmethod
     def all():
         """Get all Reviews"""
         obj = models.FileStorage()
@@ -32,4 +33,9 @@ class Review(BaseModel):
             if '__class__' in value.__dict__.keys():
                 del value.__dict__['__class__']
         obj_dict = [str(x) for x in new_obj_dict.values()]
-        print(obj_dict)
+        return obj_dict
+
+    @staticmethod
+    def count():
+        """Count all Reviews"""
+        return len(Review.all())

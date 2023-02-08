@@ -86,8 +86,8 @@ class HBNBCommand(cmd.Cmd):
 
     def do_destroy(self, line):
         """Deletes an instance based on the class name and id
-                        (save the change into the JSON file).
-                        Ex: $ destroy BaseModel 1234-1234-1234."""
+        (save the change into the JSON file).
+        Ex: $ destroy BaseModel 1234-1234-1234."""
         class_name = None
         instance_id = None
         args = None
@@ -121,7 +121,7 @@ class HBNBCommand(cmd.Cmd):
 
     def do_all(self, class_name):
         """Prints all string representation of all instances based or
-                        not on the class name. Ex: $ all BaseModel or $ all."""
+        not on the class name. Ex: $ all BaseModel or $ all."""
         if not class_name:
             obj = FileStorage()
             new_obj_dict = copy.deepcopy(obj.all())
@@ -145,34 +145,6 @@ class HBNBCommand(cmd.Cmd):
             print(obj_dict)
         else:
             print("** class doesn't exist **")
-
-    def do_User(self, line):
-        """print Users"""
-        User.all()
-
-    def do_State(self, line):
-        """print States"""
-        State.all()
-
-    def do_Amenity(self, line):
-        """print Amenities"""
-        Amenity.all()
-
-    def do_City(self, line):
-        """print Cities"""
-        City.all()
-
-    def do_Place(self, line):
-        """print Places"""
-        Place.all()
-
-    def do_Review(self, line):
-        """print Reviews"""
-        User.all()
-
-    def do_BaseModel(self, line):
-        """print BaseModels"""
-        BaseModel.all()
 
     def do_update(self, line):
         """Updates an instance based on the class name and
@@ -227,6 +199,55 @@ class HBNBCommand(cmd.Cmd):
                     print("** instance id missing **")
         else:
             print("*** class name is missing ***")
+
+    def do_User(self, line):
+        """count Users"""
+        if line.strip() == ".all()":
+            print(User.all())
+        elif line.strip() == ".count()":
+            print(User.count())
+
+    def do_State(self, line):
+        """print States"""
+        if line.strip() == ".all()":
+            print(State.all())
+        elif line.strip() == ".count()":
+            print(State.count())
+
+    def do_Amenity(self, line):
+        """print Amenities"""
+        if line.strip() == ".all()":
+            print(Amenity.all())
+        elif line.strip() == ".count()":
+            print(Amenity.count())
+
+    def do_City(self, line):
+        """print Cities"""
+        if line.strip() == ".all()":
+            print(City.all())
+        elif line.strip() == ".count()":
+            print(City.count())
+
+    def do_Place(self, line):
+        """print Places"""
+        if line.strip() == ".all()":
+            print(Place.all())
+        elif line.strip() == ".count()":
+            print(Place.count())
+
+    def do_Review(self, line):
+        """print Reviews"""
+        if line.strip() == ".all()":
+            print(Review.all())
+        elif line.strip() == ".count()":
+            print(Review.count())
+
+    def do_BaseModel(self, line):
+        """print BaseModels"""
+        if line.strip() == ".all()":
+            print(BaseModel.all())
+        elif line.strip() == ".count()":
+            print(BaseModel.count())
 
 
 if __name__ == "__main__":

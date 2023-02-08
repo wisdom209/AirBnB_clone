@@ -10,7 +10,7 @@ class Place(BaseModel):
     inherits from BaseModel and defines the Place class attributes
 
     Arguments:
-        city_id (str) - empty string: it will be the City.id
+                    city_id (str) - empty string: it will be the City.id
     user_id (str) - empty string: it will be the User.id
     name (str) - empty string
     description (str) - empty string
@@ -35,6 +35,7 @@ class Place(BaseModel):
     longitude = 0.0
     amenity_ids = []
 
+    @staticmethod
     def all():
         """Get all Places"""
         obj = models.FileStorage()
@@ -48,4 +49,10 @@ class Place(BaseModel):
             if '__class__' in value.__dict__.keys():
                 del value.__dict__['__class__']
         obj_dict = [str(x) for x in new_obj_dict.values()]
-        print(obj_dict)
+
+        return obj_dict
+
+    @staticmethod
+    def count():
+        """Count all Places"""
+        return len(Place.all())

@@ -12,11 +12,11 @@ class BaseModel:
     def __init__(self, *args, **kwargs):
         """
         Arguments:
-            id (str) - public instance with a unique value
-            created_at - holds current date and time when created
-            updated_at - holds current date and time when updated
-            *args: unused
-            **kwargs - dict representation of key/value pairs
+                        id (str) - public instance with a unique value
+                        created_at - holds current date and time when created
+                        updated_at - holds current date and time when updated
+                        *args: unused
+                        **kwargs - dict representation of key/value pairs
         """
         tf = "%Y-%m-%dT%H:%M:%S.%f"
 
@@ -61,6 +61,7 @@ class BaseModel:
         classname = self.__class__.__name__
         return "[{}] ({}) {}".format(classname, self.id, self.__dict__)
 
+    @staticmethod
     def all():
         """Get all from BaseModel"""
         obj = models.FileStorage()
@@ -74,4 +75,10 @@ class BaseModel:
             if '__class__' in value.__dict__.keys():
                 del value.__dict__['__class__']
         obj_dict = [str(x) for x in new_obj_dict.values()]
-        print(obj_dict)
+
+        return obj_dict
+
+    @staticmethod
+    def count():
+        """Count all BaseModels"""
+        return len(BaseModel.all())
