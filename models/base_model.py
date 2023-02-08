@@ -60,3 +60,18 @@ class BaseModel:
         """
         classname = self.__class__.__name__
         return "[{}] ({}) {}".format(classname, self.id, self.__dict__)
+
+    def all():
+        """Get all from BaseModel"""
+        obj = models.FileStorage()
+        new_obj_dict = copy.deepcopy(obj.all())
+
+        new_obj_dict = {
+            k: v for k, v in new_obj_dict.items()
+            if k.startswith('BaseModel')}
+
+        for value in new_obj_dict.values():
+            if '__class__' in value.__dict__.keys():
+                del value.__dict__['__class__']
+        obj_dict = [str(x) for x in new_obj_dict.values()]
+        print(obj_dict)

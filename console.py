@@ -50,7 +50,7 @@ class HBNBCommand(cmd.Cmd):
 
     def do_show(self, line):
         """Prints the string representation of an instance based on
-                the class name and id. Ex: $ show BaseModel 1234-1234-1234."""
+        the class name and id. Ex: $ show BaseModel 1234-1234-1234."""
         class_name = None
         instance_id = None
         args = None
@@ -86,8 +86,8 @@ class HBNBCommand(cmd.Cmd):
 
     def do_destroy(self, line):
         """Deletes an instance based on the class name and id
-                (save the change into the JSON file).
-                Ex: $ destroy BaseModel 1234-1234-1234."""
+                        (save the change into the JSON file).
+                        Ex: $ destroy BaseModel 1234-1234-1234."""
         class_name = None
         instance_id = None
         args = None
@@ -121,7 +121,7 @@ class HBNBCommand(cmd.Cmd):
 
     def do_all(self, class_name):
         """Prints all string representation of all instances based or
-                not on the class name. Ex: $ all BaseModel or $ all."""
+                        not on the class name. Ex: $ all BaseModel or $ all."""
         if not class_name:
             obj = FileStorage()
             new_obj_dict = copy.deepcopy(obj.all())
@@ -146,11 +146,39 @@ class HBNBCommand(cmd.Cmd):
         else:
             print("** class doesn't exist **")
 
+    def do_User(self, line):
+        """print Users"""
+        User.all()
+
+    def do_State(self, line):
+        """print States"""
+        State.all()
+
+    def do_Amenity(self, line):
+        """print Amenities"""
+        Amenity.all()
+
+    def do_City(self, line):
+        """print Cities"""
+        City.all()
+
+    def do_Place(self, line):
+        """print Places"""
+        Place.all()
+
+    def do_Review(self, line):
+        """print Reviews"""
+        User.all()
+
+    def do_BaseModel(self, line):
+        """print BaseModels"""
+        BaseModel.all()
+
     def do_update(self, line):
         """Updates an instance based on the class name and
-            id by adding or updating attribute
-            (save the change into the JSON file).
-            Ex: $ update BaseModel 1234-1234-1234 email 'aibnb@mail.com'."""
+        id by adding or updating attribute
+        (save the change into the JSON file).
+        Ex: $ update BaseModel 1234-1234-1234 email 'aibnb@mail.com'."""
         class_name = None
         id = None
         attr_name = None

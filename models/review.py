@@ -1,6 +1,8 @@
 #!/usr/bin/python3
 """Defines review module"""
 from models.base_model import BaseModel
+import copy
+import models
 
 
 class Review(BaseModel):
@@ -16,3 +18,18 @@ class Review(BaseModel):
     place_id = ""
     user_id = ""
     text = ""
+
+    def all():
+        """Get all Reviews"""
+        obj = models.FileStorage()
+        new_obj_dict = copy.deepcopy(obj.all())
+
+        new_obj_dict = {
+            k: v for k, v in new_obj_dict.items()
+            if k.startswith('Review')}
+
+        for value in new_obj_dict.values():
+            if '__class__' in value.__dict__.keys():
+                del value.__dict__['__class__']
+        obj_dict = [str(x) for x in new_obj_dict.values()]
+        print(obj_dict)
