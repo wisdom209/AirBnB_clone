@@ -47,17 +47,23 @@ class FileStorage:
                     obj = BaseModel(**value)
                     FileStorage.__objects[key] = obj
                 elif value["__class__"] == "User":
-                    FileStorage.__objects[key] = User(**value)
+                    obj = User(**value)
+                    FileStorage.__objects[key] = obj
                 elif value["__class__"] == "Place":
-                    FileStorage.__objects[key] = Place(**value)
+                    obj = Place(**value)
+                    FileStorage.__objects[key] = obj
                 elif value["__class__"] == "State":
-                    FileStorage.__objects[key] = State(**value)
+                    obj = State(**value)
+                    FileStorage.__objects[key] = obj
                 elif value["__class__"] == "City":
-                    FileStorage.__objects[key] = State(**value)
+                    obj = City(**value)
+                    FileStorage.__objects[key] = City(**value)
                 elif value["__class__"] == "Amenity":
-                    FileStorage.__objects[key] = Amenity(**value)
+                    obj = Amenity(**value)
+                    FileStorage.__objects[key] = obj
                 elif value["__class__"] == "Review":
-                    FileStorage.__objects[key] = Review(**value)
+                    obj = Review(**value)
+                    FileStorage.__objects[key] = obj
 
         except FileNotFoundError:
             pass

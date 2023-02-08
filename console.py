@@ -11,6 +11,7 @@ from models.place import Place
 from models.review import Review
 from models.engine.file_storage import FileStorage
 
+
 class HBNBCommand(cmd.Cmd):
 	"""
 	class definition for HBNBCommand that inherits from Cmd class for
@@ -19,7 +20,7 @@ class HBNBCommand(cmd.Cmd):
 
 	prompt = "(hbnb) "
 	clasname = ("BaseModel", "User", "City", "State",
-			"Amenity", "Place", "Review")
+				"Amenity", "Place", "Review")
 
 	def do_quit(self, line):
 		"""quit command to exit from the interprter"""
@@ -163,7 +164,13 @@ class HBNBCommand(cmd.Cmd):
 							else:
 								obj = FileStorage()
 								obj_to_update = obj.all()[full_key]
-								obj_to_update[str(attr_name)] = attr_value
+								add_val = attr_value
+								try:
+									add_val = eval(attr_value)
+								except Exception:
+									pass
+								obj_to_update.__dict__[
+									attr_name] = add_val
 								obj.save()
 					else:
 						print("** no instance found **")
