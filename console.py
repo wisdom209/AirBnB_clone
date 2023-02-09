@@ -32,14 +32,14 @@ class HBNBCommand(cmd.Cmd):
             class_name = show_match.group(1)
             if class_name not in self.class_tuple:
                 print("** class doesn't exist **")
-        
+
         destroy_regex = re.compile("(.*)\\.destroy\\(.*\\)")
         destroy_match = destroy_regex.match(line.strip())
         if (destroy_match):
             class_name = destroy_match.group(1)
             if class_name not in self.class_tuple:
                 print("** class doesn't exist **")
-        
+
         all_regex = re.compile("(.*)\\.all\\(\\)")
         all_match = all_regex.match(line.strip())
         if (all_match):
