@@ -163,9 +163,9 @@ class HBNBCommand(cmd.Cmd):
             if i == 1:
                 id = args[1].strip().strip('\"')
             if i == 2:
-                attr_name = args[2].strip('\"')
+                attr_name = args[2].strip().strip('\"')
             if i == 3:
-                attr_value = args[3].strip('\"')
+                attr_value = args[3].strip().strip('\"')
 
         if class_name:
             if class_name not in self.class_tuple:
@@ -182,9 +182,8 @@ class HBNBCommand(cmd.Cmd):
                             if not attr_value:
                                 print("** value missing **")
                             else:
-                                helper_functions.update_instance
-                                (class_name,
-                                    id, attr_name, attr_value)
+                                helper_functions.update_instance(class_name,
+                                                                 id, attr_name, attr_value)
                     else:
                         print("** no instance found **")
                 else:

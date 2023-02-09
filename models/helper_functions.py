@@ -67,6 +67,7 @@ def show_instance(class_name, instance_id):
 
 def update_instance(class_name, id, attr_name, attr_value):
     """"Update specified instance"""
+    print("called")
     obj = models.FileStorage()
     full_key = f"{class_name}.{id}"
 
