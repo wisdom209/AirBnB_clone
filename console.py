@@ -40,6 +40,13 @@ class HBNBCommand(cmd.Cmd):
             if class_name not in self.class_tuple:
                 print("** class doesn't exist **")
 
+        update_regex = re.compile("(.*)\\.update\\(.*\\)")
+        update_match = update_regex.match(line.strip())
+        if (update_match):
+            class_name = update_match.group(1)
+            if class_name not in self.class_tuple:
+                print("** class doesn't exist **")
+
         all_regex = re.compile("(.*)\\.all\\(\\)")
         all_match = all_regex.match(line.strip())
         if (all_match):
@@ -152,13 +159,13 @@ class HBNBCommand(cmd.Cmd):
 
         for i in range(tot_args):
             if i == 0:
-                class_name = args[0]
+                class_name = args[0].strip('\"')
             if i == 1:
-                id = args[1]
+                id = args[1].strip().strip('\"')
             if i == 2:
-                attr_name = args[2]
+                attr_name = args[2].strip('\"')
             if i == 3:
-                attr_value = args[3]
+                attr_value = args[3].strip('\"')
 
         if class_name:
             if class_name not in self.class_tuple:
@@ -175,16 +182,9 @@ class HBNBCommand(cmd.Cmd):
                             if not attr_value:
                                 print("** value missing **")
                             else:
-                                obj = FileStorage()
-                                obj_to_update = obj.all()[full_key]
-                                add_val = attr_value
-                                try:
-                                    add_val = eval(attr_value)
-                                except Exception:
-                                    pass
-                                obj_to_update.__dict__[
-                                    attr_name] = add_val
-                                obj.save()
+                                helper_functions.update_instance
+                                (class_name,
+                                    id, attr_name, attr_value)
                     else:
                         print("** no instance found **")
                 else:
@@ -210,6 +210,15 @@ class HBNBCommand(cmd.Cmd):
                 print("** instance id missing **")
             elif not getattr(eval(class_name), 'destroy')(class_name, id):
                 print("** no instance found **")
+        elif line.strip().startswith(".update("):
+            line = line.lstrip('.update(')[:-1]
+            line = line.split(",")
+            line.insert(0, class_name)
+            line = " ".join(line)
+            if (line[1] == "" or len(line) < 2):
+                print("** instance id missing **")
+            else:
+                self.do_update(line)
 
     def do_Amenity(self, line):
         """print Amenities"""
