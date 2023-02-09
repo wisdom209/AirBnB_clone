@@ -32,6 +32,14 @@ class HBNBCommand(cmd.Cmd):
             class_name = show_match.group(1)
             if class_name not in self.class_tuple:
                 print("** class doesn't exist **")
+        
+        destroy_regex = re.compile("(.*)\\.destroy\\(.*\\)")
+        destroy_match = destroy_regex.match(line.strip())
+        if (destroy_match):
+            class_name = destroy_match.group(1)
+            if class_name not in self.class_tuple:
+                print("** class doesn't exist **")
+        
         all_regex = re.compile("(.*)\\.all\\(\\)")
         all_match = all_regex.match(line.strip())
         if (all_match):
@@ -195,6 +203,12 @@ class HBNBCommand(cmd.Cmd):
             if (id == ""):
                 print("** instance id missing **")
             elif not getattr(eval(class_name), 'show')(class_name, id):
+                print("** no instance found **")
+        elif line.strip().startswith(".destroy("):
+            id = line.strip()[9:-1]
+            if (id == ""):
+                print("** instance id missing **")
+            elif not getattr(eval(class_name), 'destroy')(class_name, id):
                 print("** no instance found **")
 
     def do_Amenity(self, line):
