@@ -29,6 +29,11 @@ def delete(class_name, instance_id):
     """Delete an instance"""
 
     obj = models.FileStorage()
+    instance_id = instance_id.strip('\"')
+    if instance_id == "":
+        print("** instance id missing **")
+        return 1
+
     full_key = f"{class_name}.{instance_id}"
 
     if full_key in obj.all().keys():
@@ -43,8 +48,12 @@ def delete(class_name, instance_id):
 def show_instance(class_name, instance_id):
     """show the needed instance"""
     obj = models.FileStorage()
-    full_key = f"{class_name}.{instance_id}"
+    instance_id = instance_id.strip('\"')
+    if instance_id == "":
+        print("** instance id missing **")
+        return 1
 
+    full_key = f"{class_name}.{instance_id}"
     if full_key in obj.all().keys():
         new_obj_dict = copy.deepcopy(obj.all())
         for value in new_obj_dict.values():
