@@ -10,7 +10,7 @@ from models.amenity import Amenity
 from models.place import Place
 from models.review import Review
 from models.engine.file_storage import FileStorage
-from models.helper_functions import get_all, delete, show_instance
+from models import helper_functions
 
 
 class HBNBCommand(cmd.Cmd):
@@ -30,6 +30,12 @@ class HBNBCommand(cmd.Cmd):
         show_match = show_regex.match(line.strip())
         if (show_match):
             class_name = show_match.group(1)
+            if class_name not in self.class_tuple:
+                print("** class doesn't exist **")
+        all_regex = re.compile("(.*)\\.all\\(\\)")
+        all_match = all_regex.match(line.strip())
+        if (all_match):
+            class_name = all_match.group(1)
             if class_name not in self.class_tuple:
                 print("** class doesn't exist **")
 
@@ -80,7 +86,8 @@ class HBNBCommand(cmd.Cmd):
                     print("** instance id missing **")
 
                 if instance_id:
-                    if not show_instance(class_name, instance_id):
+                    if not helper_functions.show_instance(class_name,
+                                                          instance_id):
                         print("** no instance found **")
         else:
             print("** class name missing **")
@@ -108,7 +115,7 @@ class HBNBCommand(cmd.Cmd):
                     print("** instance id missing **")
 
                 if instance_id:
-                    if not delete(class_name, instance_id):
+                    if not helper_functions.delete(class_name, instance_id):
                         print("** no instance found **")
         else:
             print("** class name missing **")
@@ -117,9 +124,9 @@ class HBNBCommand(cmd.Cmd):
         """Prints all string representation of all instances based or
         not on the class name. Ex: $ all BaseModel or $ all."""
         if not class_name:
-            print(get_all())
+            print(helper_functions.get_all())
         elif class_name in self.class_tuple:
-            print(get_all(class_name))
+            print(helper_functions.get_all(class_name))
         else:
             print("** class doesn't exist **")
 
@@ -177,96 +184,46 @@ class HBNBCommand(cmd.Cmd):
         else:
             print("*** class name is missing ***")
 
-    def do_Amenity(self, line):
-        """print Amenities"""
+    def handle_common_actions(self, class_name, line):
+        """Handle some repeated actions"""
         if line.strip() == ".all()":
-            print(Amenity.all())
+            print(eval(class_name + ".all()"))
         elif line.strip() == ".count()":
-            print(Amenity.count())
+            print(eval(class_name + ".count()"))
         elif line.strip().startswith(".show("):
             id = line.strip()[6:-1]
             if (id == ""):
                 print("** instance id missing **")
-            elif not Amenity.show("Amenity", id):
+            elif not getattr(eval(class_name), 'show')(class_name, id):
                 print("** no instance found **")
+
+    def do_Amenity(self, line):
+        """print Amenities"""
+        self.handle_common_actions("Amenity", line)
 
     def do_BaseModel(self, line):
         """print BaseModels"""
-        if line.strip() == ".all()":
-            print(BaseModel.all())
-        elif line.strip() == ".count()":
-            print(BaseModel.count())
-        elif line.strip().startswith(".show("):
-            id = line.strip()[6:-1]
-            if (id == ""):
-                print("** instance id missing **")
-            elif not BaseModel.show("BaseModel", id):
-                print("** no instance found **")
+        self.handle_common_actions("BaseModel", line)
 
     def do_City(self, line):
         """print Cities"""
-        if line.strip() == ".all()":
-            print(City.all())
-        elif line.strip() == ".count()":
-            print(City.count())
-        elif line.strip().startswith(".show("):
-            id = line.strip()[6:-1]
-            if (id == ""):
-                print("** instance id missing **")
-            elif not City.show("City", id):
-                print("** no instance found **")
+        self.handle_common_actions("City", line)
 
     def do_Place(self, line):
         """print Places"""
-        if line.strip() == ".all()":
-            print(Place.all())
-        elif line.strip() == ".count()":
-            print(Place.count())
-        elif line.strip().startswith(".show("):
-            id = line.strip()[6:-1]
-            if (id == ""):
-                print("** instance id missing **")
-            elif not Place.show("Place", id):
-                print("** no instance found **")
+        self.handle_common_actions("Place", line)
 
     def do_Review(self, line):
         """print Reviews"""
-        if line.strip() == ".all()":
-            print(Review.all())
-        elif line.strip() == ".count()":
-            print(Review.count())
-        elif line.strip().startswith(".show("):
-            id = line.strip()[6:-1]
-            if (id == ""):
-                print("** instance id missing **")
-            elif not Review.show("Review", id):
-                print("** no instance found **")
+        self.handle_common_actions("Review", line)
 
     def do_State(self, line):
         """print States"""
-        if line.strip() == ".all()":
-            print(State.all())
-        elif line.strip() == ".count()":
-            print(State.count())
-        elif line.strip().startswith(".show("):
-            id = line.strip()[6:-1]
-            if (id == ""):
-                print("** instance id missing **")
-            elif not State.show("State", id):
-                print("** no instance found **")
+        self.handle_common_actions("State", line)
 
     def do_User(self, line):
         """count Users"""
-        if line.strip() == ".all()":
-            print(User.all())
-        elif line.strip() == ".count()":
-            print(User.count())
-        elif line.strip().startswith(".show("):
-            id = line.strip()[6:-1]
-            if (id == ""):
-                print("** instance id missing **")
-            elif not User.show("User", id):
-                print("** no instance found **")
+        self.handle_common_actions("User", line)
 
 
 if __name__ == "__main__":

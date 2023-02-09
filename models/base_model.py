@@ -13,11 +13,11 @@ class BaseModel:
     def __init__(self, *args, **kwargs):
         """
         Arguments:
-                        id (str) - public instance with a unique value
-                        created_at - holds current date and time when created
-                        updated_at - holds current date and time when updated
-                        *args: unused
-                        **kwargs - dict representation of key/value pairs
+            id (str) - public instance with a unique value
+            created_at - holds current date and time when created
+            updated_at - holds current date and time when updated
+            *args: unused
+            **kwargs - dict representation of key/value pairs
         """
         tf = "%Y-%m-%dT%H:%M:%S.%f"
 
@@ -76,3 +76,8 @@ class BaseModel:
     def show(class_name, instance_id):
         """Show the needed instance"""
         return helper_functions.show_instance(class_name, instance_id)
+
+    @staticmethod
+    def destroy(class_name, instance_id):
+        """delete specified instance"""
+        return helper_functions.delete(class_name, instance_id)

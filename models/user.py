@@ -8,11 +8,11 @@ class User(BaseModel):
     """
     assigns public class attributes that defines users
 
-    Arguments:
-                            emails (str) - empty string
-                            password (str) - empty string
-                            first_name (str) - empty string
-                            last_name (str) - empty string
+Arguments:
+            emails (str) - empty string
+            password (str) - empty string
+            first_name (str) - empty string
+            last_name (str) - empty string
     """
     email = ""
     password = ""
@@ -32,3 +32,8 @@ class User(BaseModel):
     def show(class_name, instance_id):
         """Show the needed instance"""
         return helper_functions.show_instance(class_name, instance_id)
+
+    @staticmethod
+    def destroy(class_name, instance_id):
+        """delete specified instance"""
+        return helper_functions.delete(class_name, instance_id)

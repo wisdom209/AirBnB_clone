@@ -9,8 +9,8 @@ class City(BaseModel):
     inherits from BaseModel and defines City class attributes
 
     Arguments:
-                    state_id (str) - empty string: it will be the State.id
-                    name (str) - empty string
+                state_id (str) - empty string: it will be the State.id
+                name (str) - empty string
     """
 
     state_id = ""
@@ -30,3 +30,8 @@ class City(BaseModel):
     def show(class_name, instance_id):
         """Show the needed instance"""
         return helper_functions.show_instance(class_name, instance_id)
+
+    @staticmethod
+    def destroy(class_name, instance_id):
+        """delete specified instance"""
+        return helper_functions.delete(class_name, instance_id)
