@@ -146,7 +146,7 @@ class HBNBCommand(cmd.Cmd):
         else:
             print("** class doesn't exist **")
 
-    def do_update(self, line):
+    def do_update(self, line, isDotUpdate=None):
         """Updates an instance based on the class name and
         id by adding or updating attribute
         (save the change into the JSON file).
@@ -156,12 +156,16 @@ class HBNBCommand(cmd.Cmd):
         attr_name = None
         attr_value = None
 
-        line = re.sub(r'"\s+"', '_[*]_', line)
-        line = re.sub(r"'\s+'", '_[*]_', line)
-        line = re.sub(r"\"\s+'", '_[*]_', line)
-        line = re.sub(r"'\s+\"", '_[*]_', line)
+        if isDotUpdate:
+            line = re.sub(r'"\s+"', '_[*]_', line)
+            line = re.sub(r"'\s+'", '_[*]_', line)
+            line = re.sub(r"\"\s+'", '_[*]_', line)
+            line = re.sub(r"'\s+\"", '_[*]_', line)
 
-        args = line.split('_[*]_')
+            args = line.split('_[*]_')
+        else:
+            args = line.split(" ")
+
         tot_args = len(args)
 
         for i in range(tot_args):
@@ -234,7 +238,7 @@ class HBNBCommand(cmd.Cmd):
             else:
                 line.insert(0, f'"{class_name}"')
                 line = " ".join(line)
-                self.do_update(line)
+                self.do_update(line, True)
 
     def do_Amenity(self, line):
         """print Amenities"""
