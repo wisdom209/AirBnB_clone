@@ -60,6 +60,7 @@ class HBNBCommand(cmd.Cmd):
 
     def do_EOF(self, line):
         """ctrl+D use to kill the program and exit from the interpreter"""
+        print()
         return True
 
     def emptyline(self):
@@ -154,18 +155,24 @@ class HBNBCommand(cmd.Cmd):
         id = None
         attr_name = None
         attr_value = None
-        args = line.split()
+
+        line = re.sub(r'"\s+"', '_[*]_', line)
+        line = re.sub(r"'\s+'", '_[*]_', line)
+        line = re.sub(r"\"\s+'", '_[*]_', line)
+        line = re.sub(r"'\s+\"", '_[*]_', line)
+
+        args = line.split('_[*]_')
         tot_args = len(args)
 
         for i in range(tot_args):
             if i == 0:
-                class_name = args[0].strip('\"')
+                class_name = args[0].strip().strip('\"').strip("\'")
             if i == 1:
-                id = args[1].strip().strip('\"')
+                id = args[1].strip().strip('\"').strip("\'")
             if i == 2:
-                attr_name = args[2].strip().strip('\"')
+                attr_name = args[2].strip().strip('\"').strip("\'")
             if i == 3:
-                attr_value = args[3].strip().strip('\"')
+                attr_value = args[3].strip().strip('\"').strip("\'")
 
         if class_name:
             if class_name not in self.class_tuple:
@@ -182,8 +189,9 @@ class HBNBCommand(cmd.Cmd):
                             if not attr_value:
                                 print("** value missing **")
                             else:
-                                helper_functions.update_instance(class_name,
-                                                                 id, attr_name, attr_value)
+                                helper_functions.update_instance(
+                                    class_name,
+                                    id, attr_name, attr_value)
                     else:
                         print("** no instance found **")
                 else:
@@ -212,11 +220,20 @@ class HBNBCommand(cmd.Cmd):
         elif line.strip().startswith(".update("):
             line = line.lstrip('.update(')[:-1]
             line = line.split(",")
-            line.insert(0, class_name)
-            line = " ".join(line)
+            quote_match = True
+            for x in range(len(line)):
+                if (x < 3):
+                    quote_regex = re.compile('(^\'.+\'$)|(^\".+\"$)')
+                    quote_match = quote_regex.match(line[x].strip(" "))
+                    if not quote_match:
+                        break
             if (line[1] == "" or len(line) < 2):
                 print("** instance id missing **")
+            elif not quote_match:
+                pass
             else:
+                line.insert(0, f'"{class_name}"')
+                line = " ".join(line)
                 self.do_update(line)
 
     def do_Amenity(self, line):

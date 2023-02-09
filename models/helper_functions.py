@@ -29,7 +29,7 @@ def delete(class_name, instance_id):
     """Delete an instance"""
 
     obj = models.FileStorage()
-    instance_id = instance_id.strip('\"')
+    instance_id = instance_id.strip().strip('\"').strip("\'")
     if instance_id == "":
         print("** instance id missing **")
         return 1
@@ -48,7 +48,7 @@ def delete(class_name, instance_id):
 def show_instance(class_name, instance_id):
     """show the needed instance"""
     obj = models.FileStorage()
-    instance_id = instance_id.strip('\"')
+    instance_id = instance_id.strip().strip('\"').strip("\'")
     if instance_id == "":
         print("** instance id missing **")
         return 1
@@ -67,7 +67,6 @@ def show_instance(class_name, instance_id):
 
 def update_instance(class_name, id, attr_name, attr_value):
     """"Update specified instance"""
-    print("called")
     obj = models.FileStorage()
     full_key = f"{class_name}.{id}"
 

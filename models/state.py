@@ -33,9 +33,3 @@ class State(BaseModel):
     def destroy(class_name, instance_id):
         """delete specified instance"""
         return helper_functions.delete(class_name, instance_id)
-
-    @staticmethod
-    def update(class_name, instance_id, attr_name, attr_value):
-        """update specified instance"""
-        return helper_functions.delete(class_name, instance_id,
-                                       attr_name, attr_value)
