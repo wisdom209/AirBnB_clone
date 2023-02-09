@@ -5,30 +5,30 @@ from models import helper_functions
 
 
 class Review(BaseModel):
-	"""
-	inherits from BaseModel and defines the Review class attributes
+    """
+    inherits from BaseModel and defines the Review class attributes
 
-	Arguments:
-					place_id (str) - empty string: it will be the Place.id
-					user_id (str) - empty string: it will be the User.id
-					text (str) - empty string
-	"""
+    Arguments:
+            place_id (str) - empty string: it will be the Place.id
+            user_id (str) - empty string: it will be the User.id
+            text (str) - empty string
+    """
 
-	place_id = ""
-	user_id = ""
-	text = ""
+    place_id = ""
+    user_id = ""
+    text = ""
 
-	@staticmethod
-	def all():
-		"""Get all class instances"""
-		return helper_functions.get_all("Review")
+    @staticmethod
+    def all():
+        """Get all class instances"""
+        return helper_functions.get_all("Review")
 
-	@staticmethod
-	def count():
-		"""Count all class instances"""
-		return helper_functions.get_all_count(Review)
+    @staticmethod
+    def count():
+        """Count all class instances"""
+        return helper_functions.get_all_count(Review)
 
-	@staticmethod
-	def show(class_name,instance_id):
-		"""Show the needed instance"""
-		return helper_functions.show_instance(class_name, instance_id)
+    @staticmethod
+    def show(class_name, instance_id):
+        """Show the needed instance"""
+        return helper_functions.show_instance(class_name, instance_id)

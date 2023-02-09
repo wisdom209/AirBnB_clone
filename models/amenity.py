@@ -5,26 +5,26 @@ from models import helper_functions
 
 
 class Amenity(BaseModel):
-	"""
-	inherits from BaseModel and defines Amenity class attributes
+    """
+    inherits from BaseModel and defines Amenity class attributes
 
-	Argument:
-			name (str) - empty string
-	"""
+    Argument:
+                    name (str) - empty string
+    """
 
-	name = ""
+    name = ""
 
-	@staticmethod
-	def all():
-		"""Get all instances"""
-		return helper_functions.get_all("Amenity")
+    @staticmethod
+    def all():
+        """Get all instances"""
+        return helper_functions.get_all("Amenity")
 
-	@staticmethod
-	def count():
-		"""Count all class instances"""
-		return helper_functions.get_all_count(Amenity)
+    @staticmethod
+    def count():
+        """Count all class instances"""
+        return helper_functions.get_all_count(Amenity)
 
-	@staticmethod
-	def show(class_name,instance_id):
-		"""Show the needed instance"""
-		return helper_functions.show_instance(class_name, instance_id)
+    @staticmethod
+    def show(class_name, instance_id):
+        """Show the needed instance"""
+        return helper_functions.show_instance(class_name, instance_id)

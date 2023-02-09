@@ -5,51 +5,52 @@ import copy
 
 
 def get_all(class_name_string=None):
-	"""Get all from class_name"""
-	obj = models.FileStorage()
-	new_obj_dict = copy.deepcopy(obj.all())
+    """Get all from class_name"""
+    obj = models.FileStorage()
+    new_obj_dict = copy.deepcopy(obj.all())
 
-	if class_name_string:
-		new_obj_dict = {
-			k: v for k, v in new_obj_dict.items()
-			if k.startswith(class_name_string)}
-	for value in new_obj_dict.values():
-		if '__class__' in value.__dict__.keys():
-			del value.__dict__['__class__']
-	obj_dict = [str(x) for x in new_obj_dict.values()]
-	return obj_dict
+    if class_name_string:
+        new_obj_dict = {
+            k: v for k, v in new_obj_dict.items()
+            if k.startswith(class_name_string)}
+    for value in new_obj_dict.values():
+        if '__class__' in value.__dict__.keys():
+            del value.__dict__['__class__']
+    obj_dict = [str(x) for x in new_obj_dict.values()]
+    return obj_dict
 
 
 def get_all_count(class_name_instance):
-	"""Count all class_name instances"""
-	return len(class_name_instance.all())
+    """Count all class_name instances"""
+    return len(class_name_instance.all())
 
 
 def delete(class_name, instance_id):
-	"""Delete an instance"""
+    """Delete an instance"""
 
-	obj = models.FileStorage()
-	full_key = f"{class_name}.{instance_id}"
+    obj = models.FileStorage()
+    full_key = f"{class_name}.{instance_id}"
 
-	if full_key in obj.all().keys():
-		del obj.all()[full_key]
-		f = models.FileStorage()
-		f.save()
-		return 1
-	else:
-		return 0
+    if full_key in obj.all().keys():
+        del obj.all()[full_key]
+        f = models.FileStorage()
+        f.save()
+        return 1
+    else:
+        return 0
+
 
 def show_instance(class_name, instance_id):
-	"""show the needed instance"""
-	obj = models.FileStorage()
-	full_key = f"{class_name}.{instance_id}"
+    """show the needed instance"""
+    obj = models.FileStorage()
+    full_key = f"{class_name}.{instance_id}"
 
-	if full_key in obj.all().keys():
-		new_obj_dict = copy.deepcopy(obj.all())
-		for value in new_obj_dict.values():
-			if '__class__' in value.__dict__.keys():
-				del value.__dict__['__class__']
-		print(new_obj_dict[full_key])
-		return 1
-	else:
-		return 0
+    if full_key in obj.all().keys():
+        new_obj_dict = copy.deepcopy(obj.all())
+        for value in new_obj_dict.values():
+            if '__class__' in value.__dict__.keys():
+                del value.__dict__['__class__']
+        print(new_obj_dict[full_key])
+        return 1
+    else:
+        return 0
