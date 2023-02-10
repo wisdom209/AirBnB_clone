@@ -150,7 +150,7 @@ class HBNBCommand(cmd.Cmd):
         id by adding or updating attribute
         (save the change into the JSON file).
         Ex: $ update BaseModel 1234-1234-1234 email 'aibnb@mail.com'."""
-        print("log:",line)
+        print("log:", line)
         class_name = None
         id = None
         attr_name = None
@@ -158,18 +158,15 @@ class HBNBCommand(cmd.Cmd):
         old_line = line
 
         if isDotUpdate:
-            line = re.sub(r'"\s+"', '_[*]_', line)
-            line = re.sub(r"'\s+'", '_[*]_', line)
-            line = re.sub(r"\"\s+'", '_[*]_', line)
-            line = re.sub(r"'\s+\"", '_[*]_', line)
-
-            args = line.split('_[*]_')
+            args = line.split(",")
+            print("log:IsDotUpdate", line)
         else:
-            args = line.split(" ")
-
+            args = line.split()
+            # update User dfjksldkfjsldkf "peter paut"
         tot_args = len(args)
+        print("log:whole line", args)
+        for i in range(tot_args):			# '"kdslfjdfjksldkf" "name" "23"'
 
-        for i in range(tot_args):
             if i == 0:
                 class_name = args[0].strip().strip('\"').strip("\'")
             if i == 1:
@@ -183,7 +180,14 @@ class HBNBCommand(cmd.Cmd):
                 #     attr_value = match.group(1)
                 #     print("log:regexerr", attr_value)
                 # else:
-                attr_value = args[3].strip().strip('\"').strip("\'")
+                # attr_value = args[3].strip().strip('\"').strip("\'")
+                attr_value = args[3].strip()
+                print("log: before", attr_value)
+                # if (attr_value[0] == '"' or attr_value[-1] == '"'):
+                #     attr_value = attr_value[1:-1]
+                #     print("log: after", attr_value)
+                # else:
+                #     return 1
 
         if class_name:
             if class_name not in self.class_tuple:
@@ -192,7 +196,7 @@ class HBNBCommand(cmd.Cmd):
                 if id:
                     obj = FileStorage()
                     full_key = f"{class_name}.{id}"
-                    
+
                     if full_key in obj.all().keys():
                         if not attr_name:
                             print("** attribute name is missing **")
@@ -218,8 +222,9 @@ class HBNBCommand(cmd.Cmd):
             print(eval(class_name + ".all()"))
         elif line.strip() == ".count()":
             print(eval(class_name + ".count()"))
-        elif line.strip().startswith(".show("):
-            id = line.strip()[6:-1]
+        elif (line.strip().startswith(".show('") or
+              line.strip().startswith('.show("')):
+            id = line.strip()[7:-2]
             if (id == ""):
                 print("** instance id missing **")
             elif not getattr(eval(class_name), 'show')(class_name, id):
@@ -259,13 +264,14 @@ class HBNBCommand(cmd.Cmd):
                                 break
                 return 1
 
-            line = line.split(",")
+            line = line.split(", ")
+            print("log: user update", line)
 
             quote_match = True
             for x in range(len(line)):
-                if (x < 3):
+                if (x < 2):
                     quote_regex = re.compile('(^\'.+\'$)|(^\".+\"$)')
-                    quote_match = quote_regex.match(line[x].strip(" "))
+                    quote_match = quote_regex.match(line[x].strip())
                     if not quote_match:
                         break
 
@@ -275,7 +281,8 @@ class HBNBCommand(cmd.Cmd):
                 pass
             else:
                 line.insert(0, f'"{class_name}"')
-                line = " ".join(line)
+                line = ",".join(line)
+                print("log:after join", line)
                 self.do_update(line, True)
 
     def do_Amenity(self, line):
