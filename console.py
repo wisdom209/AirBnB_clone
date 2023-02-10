@@ -155,6 +155,7 @@ class HBNBCommand(cmd.Cmd):
         id = None
         attr_name = None
         attr_value = None
+        old_line = line
 
         if isDotUpdate:
             line = re.sub(r'"\s+"', '_[*]_', line)
@@ -176,7 +177,12 @@ class HBNBCommand(cmd.Cmd):
             if i == 2:
                 attr_name = args[2].strip().strip('\"').strip("\'")
             if i == 3:
-                attr_value = args[3].strip().strip('\"').strip("\'")
+                quoted_string_regex = re.compile('(\\s\".*?\"\\s?)')
+                match = quoted_string_regex.search(old_line)
+                if (match):
+                    attr_value = match.group(1)
+                else:
+                    attr_value = args[3].strip().strip('\"').strip("\'")
 
         if class_name:
             if class_name not in self.class_tuple:
@@ -198,6 +204,7 @@ class HBNBCommand(cmd.Cmd):
                                     id, attr_name, attr_value)
                     else:
                         print("** no instance found **")
+                        return 0
                 else:
                     print("** instance id missing **")
         else:
@@ -224,20 +231,32 @@ class HBNBCommand(cmd.Cmd):
         elif line.strip().startswith(".update("):
             line = line.lstrip('.update(')[:-1]
             # match dict update
-            dict_regex = re.compile("(.*?,\s*?)(\{.*?\}$)|(\{.*?\},.+?)")
+            dict_regex = re.compile("(.*?,\\s*?)(\\{.*?\\}$)|(\\{.*?\\},.+?)")
             dict_match = dict_regex.match(line)
 
             if (dict_match):
+                for i in range(len(line)):
+                    if line[i] == "}":
+                        line = line[:i+1]
+
                 line = line.split(", {")
                 line[1] = "{" + line[1]
                 is_value_dict = eval(f"{line[1]}")
                 if (type(is_value_dict) is dict):
+                    updated = None
                     for k, v in is_value_dict.items():
                         if (v != ""):
-                            update_line = f'"{class_name}" "{line[0]}" "{k}" "{v}"'
-                            self.do_update(update_line)
+                            if type(v) is str:
+                                v = v.strip()
+                                if ' ' in v:
+                                    v = f'"{v}"'
+                            updated = f'"{class_name}" "{line[0]}" "{k}" "{v}"'
+                            ret = self.do_update(updated, True)
+
+                            if ret == 0:
+                                break
                 return 1
-            #
+
             line = line.split(",")
             quote_match = True
             for x in range(len(line)):
