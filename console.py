@@ -223,6 +223,21 @@ class HBNBCommand(cmd.Cmd):
                 print("** no instance found **")
         elif line.strip().startswith(".update("):
             line = line.lstrip('.update(')[:-1]
+            # match dict update
+            dict_regex = re.compile("(.*?,\s*?)(\{.*?\}$)|(\{.*?\},.+?)")
+            dict_match = dict_regex.match(line)
+
+            if (dict_match):
+                line = line.split(", {")
+                line[1] = "{" + line[1]
+                is_value_dict = eval(f"{line[1]}")
+                if (type(is_value_dict) is dict):
+                    for k, v in is_value_dict.items():
+                        if (v != ""):
+                            update_line = f'"{class_name}" "{line[0]}" "{k}" "{v}"'
+                            self.do_update(update_line)
+                return 1
+            #
             line = line.split(",")
             quote_match = True
             for x in range(len(line)):
