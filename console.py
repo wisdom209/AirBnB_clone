@@ -150,6 +150,7 @@ class HBNBCommand(cmd.Cmd):
         id by adding or updating attribute
         (save the change into the JSON file).
         Ex: $ update BaseModel 1234-1234-1234 email 'aibnb@mail.com'."""
+        print("log:",line)
         class_name = None
         id = None
         attr_name = None
@@ -176,12 +177,13 @@ class HBNBCommand(cmd.Cmd):
             if i == 2:
                 attr_name = args[2].strip().strip('\"').strip("\'")
             if i == 3:
-                quoted_string_regex = re.compile('(\\s\".*?\"\\s?)')
-                match = quoted_string_regex.search(old_line)
-                if (match):
-                    attr_value = match.group(1)
-                else:
-                    attr_value = args[3].strip().strip('\"').strip("\'")
+                # quoted_string_regex = re.compile('(\\s\".*?\"\\s?)')
+                # match = quoted_string_regex.search(old_line)
+                # if (match and isDotUpdate):
+                #     attr_value = match.group(1)
+                #     print("log:regexerr", attr_value)
+                # else:
+                attr_value = args[3].strip().strip('\"').strip("\'")
 
         if class_name:
             if class_name not in self.class_tuple:
@@ -190,7 +192,7 @@ class HBNBCommand(cmd.Cmd):
                 if id:
                     obj = FileStorage()
                     full_key = f"{class_name}.{id}"
-
+                    
                     if full_key in obj.all().keys():
                         if not attr_name:
                             print("** attribute name is missing **")
@@ -198,6 +200,7 @@ class HBNBCommand(cmd.Cmd):
                             if not attr_value:
                                 print("** value missing **")
                             else:
+                                print("log:attr_value -", attr_value)
                                 helper_functions.update_instance(
                                     class_name,
                                     id, attr_name, attr_value)
