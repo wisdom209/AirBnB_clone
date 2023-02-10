@@ -11,6 +11,7 @@ from models.place import Place
 from models.review import Review
 from models.engine.file_storage import FileStorage
 from models import helper_functions
+import sys
 
 
 class HBNBCommand(cmd.Cmd):
@@ -28,31 +29,29 @@ class HBNBCommand(cmd.Cmd):
         """Override some error message"""
         show_regex = re.compile("(.*)\\.show\\(.*\\)")
         show_match = show_regex.match(line.strip())
-        if (show_match):
-            class_name = show_match.group(1)
-            if class_name not in self.class_tuple:
-                print("** class doesn't exist **")
 
         destroy_regex = re.compile("(.*)\\.destroy\\(.*\\)")
         destroy_match = destroy_regex.match(line.strip())
-        if (destroy_match):
-            class_name = destroy_match.group(1)
-            if class_name not in self.class_tuple:
-                print("** class doesn't exist **")
 
         update_regex = re.compile("(.*)\\.update\\(.*\\)")
         update_match = update_regex.match(line.strip())
-        if (update_match):
-            class_name = update_match.group(1)
-            if class_name not in self.class_tuple:
-                print("** class doesn't exist **")
 
         all_regex = re.compile("(.*)\\.all\\(\\)")
         all_match = all_regex.match(line.strip())
-        if (all_match):
-            class_name = all_match.group(1)
-            if class_name not in self.class_tuple:
-                print("** class doesn't exist **")
+
+        match_list = [update_match, show_match, all_match, destroy_match]
+
+        for i in match_list:
+            if (i):
+                class_name = i.group(1)
+                if class_name not in self.class_tuple:
+                    print("** class doesn't exist **")
+
+    def do_help(self, arg):
+        """help me"""
+        if (not sys.stdin.isatty()):
+            print()
+        return super().do_help(arg)
 
     def do_quit(self, line):
         """quit command to exit from the interprter"""
@@ -258,6 +257,7 @@ class HBNBCommand(cmd.Cmd):
                 return 1
 
             line = line.split(",")
+
             quote_match = True
             for x in range(len(line)):
                 if (x < 3):
@@ -265,7 +265,8 @@ class HBNBCommand(cmd.Cmd):
                     quote_match = quote_regex.match(line[x].strip(" "))
                     if not quote_match:
                         break
-            if (line[1] == "" or len(line) < 2):
+
+            if (line and (line[0] == "")):
                 print("** instance id missing **")
             elif not quote_match:
                 pass

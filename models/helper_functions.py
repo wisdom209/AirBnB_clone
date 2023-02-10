@@ -13,6 +13,7 @@ def get_all(class_name_string=None):
         new_obj_dict = {
             k: v for k, v in new_obj_dict.items()
             if k.startswith(class_name_string)}
+
     for value in new_obj_dict.values():
         if '__class__' in value.__dict__.keys():
             del value.__dict__['__class__']
