@@ -85,8 +85,8 @@ class HBNBCommand(cmd.Cmd):
             print("** class name missing **")
 
     def do_show(self, line):
-        """Prints the string representation of an instance based on
-        the class name and id. Ex: $ show BaseModel 1234-1234-1234."""
+        """Prints the string representation of an instance"""
+
         class_name = None
         instance_id = None
         args = None
@@ -171,14 +171,14 @@ class HBNBCommand(cmd.Cmd):
 
         if class_name:
             if class_name not in self.class_tuple:
-                print("*** class doesn't exist ***")
+                print("** class doesn't exist **")
             else:
                 if id:
                     obj = FileStorage()
                     full_key = f"{class_name}.{id}"
                     if full_key in obj.all().keys():
                         if not attr_name:
-                            print("** attribute name is missing **")
+                            print("** attribute name missing **")
                         else:
                             if not attr_value:
                                 print("** value missing **")
@@ -193,7 +193,7 @@ class HBNBCommand(cmd.Cmd):
                 else:
                     print("** instance id missing **")
         else:
-            print("*** class name is missing ***")
+            print("** class name missing **")
 
     def update_with_a_dict(self, line, class_name):
         """Update an Object using a whole dict"""
@@ -202,8 +202,13 @@ class HBNBCommand(cmd.Cmd):
                 line = line[:i+1]
 
         line = line.split(", {")
-        line[1] = "{" + line[1]
-        is_value_dict = eval(f"{line[1]}")
+        if (line and len(line) >= 2):
+            line[1] = "{" + line[1]
+        try:
+            is_value_dict = eval(f"{line[1]}")
+        except Exception:
+            is_value_dict = None
+
         if (type(is_value_dict) is dict):
             updated = None
             for k, v in is_value_dict.items():
@@ -266,7 +271,7 @@ class HBNBCommand(cmd.Cmd):
             line = line.lstrip('.update(')[:-1]
             # match dict update
             dict_regex = re.compile(
-                r"(\".*?\",\s*?)(\{.*?\}$)|(\{.*?\},\s.+?)")
+                r"([\"\'].*?[\"\'],\s*?)(\{.*?\}$)|(\{.*?\},\s.+?)")
             dict_regex_miss_id = re.compile(r"(\{.*\})")
             dict_match = dict_regex.match(line.strip())
             dict_no_id = dict_regex_miss_id.match(line.strip())
