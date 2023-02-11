@@ -255,7 +255,7 @@ class HBNBCommand(cmd.Cmd):
             dict_match = dict_regex.match(line)
 
             if (dict_match):
-				# TODO: handle missing instance id
+                # TODO: handle missing instance id
                 self.update_with_a_dict(line, class_name)
             else:
                 line = line.split(", ")
