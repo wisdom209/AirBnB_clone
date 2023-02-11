@@ -51,7 +51,7 @@ def show_instance(class_name, instance_id):
     """show the needed instance"""
     obj = models.FileStorage()
     instance_id = instance_id.strip().strip('\"').strip("\'")
-    if instance_id == "":
+    if instance_id == "" or not instance_id:
         print("** instance id missing **")
         return 1
 

@@ -90,7 +90,6 @@ class HBNBCommand(cmd.Cmd):
         class_name = None
         instance_id = None
         args = None
-
         if (line and len(line) != 0):
             args = line.split()
             class_name = args[0]
@@ -235,28 +234,46 @@ class HBNBCommand(cmd.Cmd):
             print(eval(class_name + ".all()"))
         elif line.strip() == ".count()":
             print(eval(class_name + ".count()"))
-        elif (line.strip().startswith(".show('") or
-              line.strip().startswith('.show("')):
+        elif (line.strip() == ".show()" or
+              line.strip().startswith(".show('") or
+              line.strip().startswith('.show("')) and \
+                line.strip().endswith(")"):
             id = line.strip()[7:-2]
-            if (id == ""):
+            if (id == "" or line.strip() == ".show()"):
                 print("** instance id missing **")
+            elif not self.check_dotUpdate_quotes([id.strip()]) \
+                    or len(id.split(", ")) > 1:
+                pass
             elif not getattr(eval(class_name), 'show')(class_name, id):
                 print("** no instance found **")
-        elif line.strip().startswith(".destroy("):
+        elif (line.strip() == ".destroy()" or
+              line.strip().startswith(".destroy('") or
+              line.strip().startswith('.destroy("')) and \
+                line.strip().endswith(')'):
             id = line.strip()[9:-1]
-            if (id == ""):
+
+            if (id == "" or line.strip == ".destroy()"):
                 print("** instance id missing **")
+            elif not self.check_dotUpdate_quotes([id.strip()]) \
+                    or len(id.split(", ")) > 1:
+                pass
             elif not getattr(eval(class_name), 'destroy')(class_name, id):
                 print("** no instance found **")
-        elif line.strip().startswith(".update("):
+        elif line.strip().startswith(".update(") and \
+                line.strip().endswith(')'):
             line = line.lstrip('.update(')[:-1]
             # match dict update
-            dict_regex = re.compile(r"(\".*?\",\s*?)(\{.*?\}$)|(\{.*?\},.+?)")
-            dict_match = dict_regex.match(line)
+            dict_regex = re.compile(
+                r"(\".*?\",\s*?)(\{.*?\}$)|(\{.*?\},\s.+?)")
+            dict_regex_miss_id = re.compile(r"(\{.*\})")
+            dict_match = dict_regex.match(line.strip())
+            dict_no_id = dict_regex_miss_id.match(line.strip())
 
             if (dict_match):
                 # TODO: handle missing instance id
                 self.update_with_a_dict(line, class_name)
+            elif dict_no_id and type(eval(f"{dict_no_id.group(1)}")) is dict:
+                print("** instance id missing **")
             else:
                 line = line.split(", ")
                 is_dotUpdate_well_quoted = self.check_dotUpdate_quotes(line)
