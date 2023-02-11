@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 """Module with share functions"""
+import re
 import models
 import copy
 
@@ -81,3 +82,57 @@ def update_instance(class_name, id, attr_name, attr_value):
     obj_to_update.__dict__[attr_name] = add_val
 
     obj.save()
+
+
+def get_do_update_arg_list(do_update, isDotUpdate, line):
+    """get a list for performing do_update action"""
+    args = None
+    to_update = do_update
+    quoted_attr_value = None
+    if isDotUpdate:
+        args = line.split(", ")
+    else:
+        new_line = line + " "
+        # match: <classname> <id> <attr_name> "<attr_value>"
+        str_regex = re.compile(
+            r"^\w+\s+[\w\-]+\s+\w+\s+([\"\'][\w\s]+[\"\']\s)")
+        str_match = str_regex.match(new_line)
+        if (str_match):
+            quoted_attr_value = str_match.group(1)
+        if (not quoted_attr_value and "'" in line) or \
+                (not quoted_attr_value and '"' in line):
+            to_update = 0
+        args = line.split()
+    return [args, to_update, quoted_attr_value]
+
+
+def get_needed_params_for_do_update(args, quoted_attr_value, do_update):
+    """Get parameters needed to update an object"""
+    class_name = None
+    id = None
+    attr_name = None
+    attr_value = None
+    tot_args = len(args)
+    for i in range(tot_args):
+        if i == 0:
+            class_name = args[0].strip().strip('\"').strip("\'")
+        if i == 1:
+            id = args[1].strip().strip('\"').strip("\'")
+        if i == 2:
+            attr_name = args[2].strip().strip('\"').strip("\'")
+        if i == 3:
+            if quoted_attr_value:
+                attr_value = quoted_attr_value.strip()
+            else:
+                attr_value = args[3].strip()
+                # check if value contains only digits
+                check_quote_reg = re.compile(r"(^\'.*\'$)|(^\".*\"$)")
+                check_quote_match = check_quote_reg.match(attr_value)
+                if not check_quote_match:
+                    for x in attr_value:
+                        if not x.isdigit():
+                            do_update = 0
+                    if do_update:
+                        attr_value = int(attr_value)
+    retList = [class_name, id, attr_name, attr_value, do_update]
+    return retList

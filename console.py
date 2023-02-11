@@ -27,20 +27,25 @@ class HBNBCommand(cmd.Cmd):
 
     def default(self, line):
         """Override some error message"""
+
+        # Get the regex for class_name.show(args)
+        # Get the regex for class_name.destroy(args)
+        # Get the regex for class_name.update(args)
+        # Get the regex for class_name.all(args)
         show_regex = re.compile("(.*)\\.show\\(.*\\)")
-        show_match = show_regex.match(line.strip())
-
         destroy_regex = re.compile("(.*)\\.destroy\\(.*\\)")
-        destroy_match = destroy_regex.match(line.strip())
-
         update_regex = re.compile("(.*)\\.update\\(.*\\)")
-        update_match = update_regex.match(line.strip())
-
         all_regex = re.compile("(.*)\\.all\\(\\)")
+
+        # match the regex with the line
+        show_match = show_regex.match(line.strip())
+        destroy_match = destroy_regex.match(line.strip())
+        update_match = update_regex.match(line.strip())
         all_match = all_regex.match(line.strip())
 
         match_list = [update_match, show_match, all_match, destroy_match]
 
+        # check if class exists
         for i in match_list:
             if (i):
                 class_name = i.group(1)
@@ -89,7 +94,6 @@ class HBNBCommand(cmd.Cmd):
         if (line and len(line) != 0):
             args = line.split()
             class_name = args[0]
-
             if (len(args) > 1):
                 instance_id = args[1]
 
@@ -99,7 +103,6 @@ class HBNBCommand(cmd.Cmd):
             else:
                 if not instance_id:
                     print("** instance id missing **")
-
                 if instance_id:
                     if not helper_functions.show_instance(class_name,
                                                           instance_id):
@@ -118,7 +121,6 @@ class HBNBCommand(cmd.Cmd):
         if (line and len(line) != 0):
             args = line.split()
             class_name = args[0]
-
             if (len(args) > 1):
                 instance_id = args[1]
 
@@ -128,7 +130,6 @@ class HBNBCommand(cmd.Cmd):
             else:
                 if not instance_id:
                     print("** instance id missing **")
-
                 if instance_id:
                     if not helper_functions.delete(class_name, instance_id):
                         print("** no instance found **")
@@ -150,53 +151,33 @@ class HBNBCommand(cmd.Cmd):
         id by adding or updating attribute
         (save the change into the JSON file).
         Ex: $ update BaseModel 1234-1234-1234 email 'aibnb@mail.com'."""
-        print("log:", line)
         class_name = None
         id = None
         attr_name = None
         attr_value = None
-        old_line = line
+        quoted_attr_value = None
+        do_update = 1
+        args = []
 
         if isDotUpdate:
             args = line.split(",")
-            print("log:IsDotUpdate", line)
         else:
-            args = line.split()
-            # update User dfjksldkfjsldkf "peter paut"
-        tot_args = len(args)
-        print("log:whole line", args)
-        for i in range(tot_args):			# '"kdslfjdfjksldkf" "name" "23"'
+            arg_list = helper_functions.get_do_update_arg_list(
+                do_update, isDotUpdate, line)
+            args, do_update, quoted_attr_value = arg_list
 
-            if i == 0:
-                class_name = args[0].strip().strip('\"').strip("\'")
-            if i == 1:
-                id = args[1].strip().strip('\"').strip("\'")
-            if i == 2:
-                attr_name = args[2].strip().strip('\"').strip("\'")
-            if i == 3:
-                # quoted_string_regex = re.compile('(\\s\".*?\"\\s?)')
-                # match = quoted_string_regex.search(old_line)
-                # if (match and isDotUpdate):
-                #     attr_value = match.group(1)
-                #     print("log:regexerr", attr_value)
-                # else:
-                # attr_value = args[3].strip().strip('\"').strip("\'")
-                attr_value = args[3].strip()
-                print("log: before", attr_value)
-                # if (attr_value[0] == '"' or attr_value[-1] == '"'):
-                #     attr_value = attr_value[1:-1]
-                #     print("log: after", attr_value)
-                # else:
-                #     return 1
+        param_list = helper_functions.get_needed_params_for_do_update(
+            args, quoted_attr_value, do_update)
+        class_name, id, attr_name, attr_value, do_update = param_list
 
         if class_name:
+            print("loggig class name", class_name)
             if class_name not in self.class_tuple:
                 print("*** class doesn't exist ***")
             else:
                 if id:
                     obj = FileStorage()
                     full_key = f"{class_name}.{id}"
-
                     if full_key in obj.all().keys():
                         if not attr_name:
                             print("** attribute name is missing **")
@@ -204,10 +185,12 @@ class HBNBCommand(cmd.Cmd):
                             if not attr_value:
                                 print("** value missing **")
                             else:
-                                print("log:attr_value -", attr_value)
-                                helper_functions.update_instance(
-                                    class_name,
-                                    id, attr_name, attr_value)
+                                print("log", do_update)
+                                if do_update:
+                                    print("log", do_update)
+                                    helper_functions.update_instance(
+                                        class_name,
+                                        id, attr_name, attr_value)
                     else:
                         print("** no instance found **")
                         return 0
@@ -215,6 +198,40 @@ class HBNBCommand(cmd.Cmd):
                     print("** instance id missing **")
         else:
             print("*** class name is missing ***")
+
+    def update_with_a_dict(self, line, class_name):
+        """Update an Object using a whole dict"""
+        for i in range(len(line)):
+            if line[i] == "}":
+                line = line[:i+1]
+
+        line = line.split(", {")
+        line[1] = "{" + line[1]
+        is_value_dict = eval(f"{line[1]}")
+        if (type(is_value_dict) is dict):
+            updated = None
+            for k, v in is_value_dict.items():
+                if (v != ""):
+                    if type(v) is str:
+                        v = v.strip()
+                        v = f'"{v}"'
+                    instance_id = line[0].strip().strip("\'").strip('"')
+                    updated = f'{class_name} {instance_id} {k} {v}'
+                    print("log updated:", updated)
+                    ret = self.do_update(updated, False)
+                    if ret == 0:
+                        break
+
+    def check_dotUpdate_quotes(self, line):
+        """Check parameters in dot updates are quoted"""
+        quote_match = True
+        for x in range(len(line)):
+            if (x < 2):
+                quote_regex = re.compile('(^\'.+\'$)|(^\".+\"$)')
+                quote_match = quote_regex.match(line[x].strip())
+                if not quote_match:
+                    break
+        return quote_match
 
     def handle_common_actions(self, class_name, line):
         """Handle some repeated actions"""
@@ -238,52 +255,25 @@ class HBNBCommand(cmd.Cmd):
         elif line.strip().startswith(".update("):
             line = line.lstrip('.update(')[:-1]
             # match dict update
-            dict_regex = re.compile("(.*?,\\s*?)(\\{.*?\\}$)|(\\{.*?\\},.+?)")
+            dict_regex = re.compile(r"(\".*?\",\s*?)(\{.*?\}$)|(\{.*?\},.+?)")
             dict_match = dict_regex.match(line)
 
             if (dict_match):
-                for i in range(len(line)):
-                    if line[i] == "}":
-                        line = line[:i+1]
-
-                line = line.split(", {")
-                line[1] = "{" + line[1]
-                is_value_dict = eval(f"{line[1]}")
-                if (type(is_value_dict) is dict):
-                    updated = None
-                    for k, v in is_value_dict.items():
-                        if (v != ""):
-                            if type(v) is str:
-                                v = v.strip()
-                                if ' ' in v:
-                                    v = f'"{v}"'
-                            updated = f'"{class_name}" "{line[0]}" "{k}" "{v}"'
-                            ret = self.do_update(updated, True)
-
-                            if ret == 0:
-                                break
-                return 1
-
-            line = line.split(", ")
-            print("log: user update", line)
-
-            quote_match = True
-            for x in range(len(line)):
-                if (x < 2):
-                    quote_regex = re.compile('(^\'.+\'$)|(^\".+\"$)')
-                    quote_match = quote_regex.match(line[x].strip())
-                    if not quote_match:
-                        break
-
-            if (line and (line[0] == "")):
-                print("** instance id missing **")
-            elif not quote_match:
-                pass
+                print("log: it's a dict")
+                print("log:", class_name)
+                self.update_with_a_dict(line, class_name)
             else:
-                line.insert(0, f'"{class_name}"')
-                line = ",".join(line)
-                print("log:after join", line)
-                self.do_update(line, True)
+                line = line.split(", ")
+                is_dotUpdate_well_quoted = self.check_dotUpdate_quotes(line)
+
+                if (line and (line[0] == "")):
+                    print("** instance id missing **")
+                elif not is_dotUpdate_well_quoted:
+                    pass
+                else:
+                    line.insert(0, f'"{class_name}"')
+                    line = ",".join(line)
+                    self.do_update(line, True)
 
     def do_Amenity(self, line):
         """print Amenities"""
