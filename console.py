@@ -238,8 +238,9 @@ class HBNBCommand(cmd.Cmd):
               line.strip().startswith(".show('") or
               line.strip().startswith('.show("')) and \
                 line.strip().endswith(")"):
-            id = line.strip()[7:-2]
-            if (id == "" or line.strip() == ".show()"):
+            id = line.strip()[6:-1]
+            if (id == "" or not id.strip("'") or not id.strip('\"')
+                    or line.strip() == ".show()"):
                 print("** instance id missing **")
             elif not self.check_dotUpdate_quotes([id.strip()]) \
                     or len(id.split(", ")) > 1:
@@ -252,7 +253,8 @@ class HBNBCommand(cmd.Cmd):
                 line.strip().endswith(')'):
             id = line.strip()[9:-1]
 
-            if (id == "" or line.strip == ".destroy()"):
+            if (id == "" or not id.strip("'") or not id.strip('\"')
+                    or line.strip == ".destroy()"):
                 print("** instance id missing **")
             elif not self.check_dotUpdate_quotes([id.strip()]) \
                     or len(id.split(", ")) > 1:
