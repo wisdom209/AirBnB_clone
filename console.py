@@ -171,7 +171,6 @@ class HBNBCommand(cmd.Cmd):
         class_name, id, attr_name, attr_value, do_update = param_list
 
         if class_name:
-            print("loggig class name", class_name)
             if class_name not in self.class_tuple:
                 print("*** class doesn't exist ***")
             else:
@@ -185,9 +184,7 @@ class HBNBCommand(cmd.Cmd):
                             if not attr_value:
                                 print("** value missing **")
                             else:
-                                print("log", do_update)
                                 if do_update:
-                                    print("log", do_update)
                                     helper_functions.update_instance(
                                         class_name,
                                         id, attr_name, attr_value)
@@ -217,7 +214,6 @@ class HBNBCommand(cmd.Cmd):
                         v = f'"{v}"'
                     instance_id = line[0].strip().strip("\'").strip('"')
                     updated = f'{class_name} {instance_id} {k} {v}'
-                    print("log updated:", updated)
                     ret = self.do_update(updated, False)
                     if ret == 0:
                         break
@@ -259,8 +255,7 @@ class HBNBCommand(cmd.Cmd):
             dict_match = dict_regex.match(line)
 
             if (dict_match):
-                print("log: it's a dict")
-                print("log:", class_name)
+				# TODO: handle missing instance id
                 self.update_with_a_dict(line, class_name)
             else:
                 line = line.split(", ")
