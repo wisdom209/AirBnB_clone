@@ -26,7 +26,7 @@ class State(BaseModel):
 
     @staticmethod
     def show(class_name, instance_id):
-        """Show the needed instance"""
+        """Show needed instance"""
         return helper_functions.show_instance(class_name, instance_id)
 
     @staticmethod
