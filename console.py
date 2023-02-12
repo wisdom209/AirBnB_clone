@@ -303,7 +303,7 @@ class HBNBCommand(cmd.Cmd):
         self.handle_common_actions("BaseModel", line)
 
     def do_City(self, line):
-        """print City"""
+        """print Cities"""
         self.handle_common_actions("City", line)
 
     def do_Place(self, line):
