@@ -299,7 +299,7 @@ class HBNBCommand(cmd.Cmd):
         self.handle_common_actions("Amenity", line)
 
     def do_BaseModel(self, line):
-        """print BaseModel"""
+        """print BaseModels"""
         self.handle_common_actions("BaseModel", line)
 
     def do_City(self, line):
