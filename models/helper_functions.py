@@ -70,8 +70,8 @@ def show_instance(class_name, instance_id):
 def update_instance(class_name, id, attr_name, attr_value):
     """"Update specified instance"""
     obj = models.FileStorage()
-    full_key = f"{class_name}.{id}"
 
+    full_key = f"{class_name}.{id}"
     obj = models.FileStorage()
     obj_to_update = obj.all()[full_key]
     add_val = attr_value
