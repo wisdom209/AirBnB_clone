@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 """Defines the FileStorage class"""
-from models.base_model import BaseModel
 import json
+from models.base_model import BaseModel
 from models.user import User
 from models.city import City
 from models.state import State

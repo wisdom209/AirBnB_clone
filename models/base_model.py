@@ -21,7 +21,6 @@ class BaseModel:
             *args: unused
             **kwargs - dict representation of key/value pairs
         """
-        tf = "%Y-%m-%dT%H:%M:%S.%f"
 
         if kwargs is not None and len(kwargs) != 0:
             if "__class" in kwargs:
