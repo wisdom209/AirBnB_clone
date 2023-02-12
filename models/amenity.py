@@ -9,7 +9,7 @@ class Amenity(BaseModel):
     inherits from BaseModel and defines Amenity class attributes
 
     Argument:
-                                    name (str) - empty string
+        name (str) - empty string
     """
 
     name = ""
