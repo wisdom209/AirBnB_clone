@@ -13,7 +13,7 @@ class BaseModel:
     def __init__(self, *args, **kwargs):
         """
         Arguments:
-            id (str) - public instance with a unique value
+            id (str) - public instance with  unique value
             created_at - holds current date and time when created
             updated_at - holds current date and time when updated
             *args: unused
