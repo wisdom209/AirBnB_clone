@@ -33,8 +33,10 @@ class FileStorage:
         FileStorage.__objects["{}.{}".format(oclasname, obj.id)] = obj
 
     def save(self):
-        """serializes __objects to the JSON file (path: __file_path)"""
-        """Save/serialize obj dictionaries to json file"""
+        """
+        serializes __objects to the JSON file (path: __file_path)
+        Save/serialize obj dictionaries to json file
+        """
         obj_dict = {}
         for key, obj in self.__objects.items():
             obj_dict[key] = obj.to_dict()

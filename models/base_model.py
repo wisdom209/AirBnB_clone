@@ -8,7 +8,9 @@ from models import helper_functions
 
 
 class BaseModel:
-    """defines all common attributes/methods for other classes"""
+    """
+    defines all common attributes/methods for other classes
+    """
 
     def __init__(self, *args, **kwargs):
         """
@@ -65,20 +67,28 @@ class BaseModel:
 
     @staticmethod
     def all():
-        """Get all instances"""
+        """
+        Get all instances
+        """
         return helper_functions.get_all("BaseModel")
 
     @staticmethod
     def count():
-        """Count all class instances"""
+        """
+        Count all class instances
+        """
         return helper_functions.get_all_count(BaseModel)
 
     @staticmethod
     def show(class_name, instance_id):
-        """Show the needed instance"""
+        """
+        Show the needed instance
+        """
         return helper_functions.show_instance(class_name, instance_id)
 
     @staticmethod
     def destroy(class_name, instance_id):
-        """delete specified instance"""
+        """
+        delete specified instance
+        """
         return helper_functions.delete(class_name, instance_id)
