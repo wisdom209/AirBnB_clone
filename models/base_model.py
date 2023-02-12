@@ -15,7 +15,7 @@ class BaseModel:
         Arguments:
             id (str) - public instance with a unique value
             created_at - holds current date and time when created
-            updated_at - holds current date time when updated
+            updated_at - holds current date and time when updated
             *args: unused
             **kwargs - dict representation of key/value pairs
         """
