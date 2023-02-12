@@ -30,7 +30,7 @@ class User(BaseModel):
 
     @staticmethod
     def show(class_name, instance_id):
-        """Show the needed instance"""
+        """Show the associated instance"""
         return helper_functions.show_instance(class_name, instance_id)
 
     @staticmethod
