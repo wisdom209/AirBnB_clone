@@ -69,8 +69,9 @@ class TestBaseModel(unittest.TestCase):
         checks the string output of an instance
         """
         base = BaseModel()
-        self.assertEqual(base.__str__(),
-                         f"[{type(base).__name__}] ({base.id}) {base.__dict__}")
+        self.assertEqual(
+            base.__str__(),
+            f"[{type(base).__name__}] ({base.id}) {base.__dict__}")
         base.destroy("BaseModel", base.id)
 
     def test_to_dict(self):
