@@ -311,7 +311,7 @@ class HBNBCommand(cmd.Cmd):
         self.handle_common_actions("Place", line)
 
     def do_Review(self, line):
-        """print Reviews"""
+        """print Review"""
         self.handle_common_actions("Review", line)
 
     def do_State(self, line):
