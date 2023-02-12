@@ -295,7 +295,7 @@ class HBNBCommand(cmd.Cmd):
                     self.do_update(line, True)
 
     def do_Amenity(self, line):
-        """print Amenity"""
+        """print Amenities"""
         self.handle_common_actions("Amenity", line)
 
     def do_BaseModel(self, line):
