@@ -15,11 +15,13 @@ class TestConsole(unittest.TestCase):
         with patch('sys.stdout', new=StringIO()) as f:
             HBNBCommand().onecmd("help show")
         self.assertEqual(
-            "Prints the string representation of an instance".strip(), f.getvalue().strip())
+            "Prints the string representation of an instance".strip(),
+            f.getvalue().strip())
         with patch('sys.stdout', new=StringIO()) as f:
             HBNBCommand().onecmd("help create")
         self.assertEqual(
-            "Creates a new BaseModel instance, saves and prints the ID".strip(), f.getvalue().strip())
+            "Creates a new BaseModel instance, saves and prints " +
+            "the ID".strip(), f.getvalue().strip())
 
     def test_create(self):
         with patch('sys.stdout', new=StringIO()) as f:
@@ -479,12 +481,12 @@ class TestConsole(unittest.TestCase):
         with patch('sys.stdout', new=StringIO()) as f:
 
             HBNBCommand().onecmd(
-                f"BaseModel.update('{model_id}', {{'second': 5, 'third': 'three'}})")
+                f"BaseModel.update('{model_id}', {{'2nd': 5, '3rd': 'two'}})")
 
         with patch('sys.stdout', new=StringIO()) as f:
             HBNBCommand().onecmd(f"BaseModel.show('{model_id}')")
-        self.assertIn('third', f.getvalue())
-        self.assertIn('second', f.getvalue())
+        self.assertIn('3rd', f.getvalue())
+        self.assertIn('2nd', f.getvalue())
 
     def test_userdotupdate(self):
         with patch('sys.stdout', new=StringIO()) as f:
@@ -510,11 +512,11 @@ class TestConsole(unittest.TestCase):
         self.assertIn('first', f.getvalue())
         with patch('sys.stdout', new=StringIO()) as f:
             HBNBCommand().onecmd(
-                f"User.update('{model_id}', {{'second': 5, 'third': 'three'}})")
+                f"User.update('{model_id}', {{'2nd': 5, '3rd': 'two'}})")
         with patch('sys.stdout', new=StringIO()) as f:
             HBNBCommand().onecmd(f"User.show('{model_id}')")
-        self.assertIn('third', f.getvalue())
-        self.assertIn('second', f.getvalue())
+        self.assertIn('3rd', f.getvalue())
+        self.assertIn('2nd', f.getvalue())
 
     def test_placedotupdate(self):
         with patch('sys.stdout', new=StringIO()) as f:
@@ -540,11 +542,11 @@ class TestConsole(unittest.TestCase):
         self.assertIn('first', f.getvalue())
         with patch('sys.stdout', new=StringIO()) as f:
             HBNBCommand().onecmd(
-                f"Place.update('{model_id}', {{'second': 5, 'third': 'three'}})")
+                f"Place.update('{model_id}', {{'2nd': 5, '3rd': 'two'}})")
         with patch('sys.stdout', new=StringIO()) as f:
             HBNBCommand().onecmd(f"Place.show('{model_id}')")
-        self.assertIn('third', f.getvalue())
-        self.assertIn('second', f.getvalue())
+        self.assertIn('3rd', f.getvalue())
+        self.assertIn('2nd', f.getvalue())
 
     def test_statedotupdate(self):
         with patch('sys.stdout', new=StringIO()) as f:
