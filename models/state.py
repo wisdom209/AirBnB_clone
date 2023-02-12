@@ -16,7 +16,7 @@ class State(BaseModel):
 
     @staticmethod
     def all():
-        """Get all instances"""
+        """Get instances"""
         return helper_functions.get_all("State")
 
     @staticmethod
