@@ -9,7 +9,7 @@ class State(BaseModel):
     Inherits from BaseModel and defines state class attributes
 
     Argument:
-                                    name (str) - empty string
+        name (str) - empty string
     """
 
     name = ""
