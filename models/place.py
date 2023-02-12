@@ -9,7 +9,7 @@ class Place(BaseModel):
     inherits from BaseModel and defines the Place class attributes
 
     Arguments:
-        city_id (str) - empty string: it will be the City.id
+        city_ (str) - empty string: it will be the City.id
         user_id (str) - empty string: it will be the User.id
         name (str) - empty string
         description (str) - empty string
