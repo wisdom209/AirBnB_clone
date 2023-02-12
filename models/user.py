@@ -8,7 +8,7 @@ class User(BaseModel):
     """
     assigns public class attributes that defines users
 
-    Arguments:
+    Args:
             email (str) - empty string
             password (str) - empty string
             first_name (str) - empty string
