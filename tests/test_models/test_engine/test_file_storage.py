@@ -38,7 +38,7 @@ class TestFileStorage(unittest.TestCase):
         key = b.__class__.__name__ + "." + b.id
         self.assertEqual(fs.all()[key], b)
 
-    def test_obj_creation(self):
+    def test_save(self):
         fs = FileStorage()
         b = BaseModel()
         b.name = "Tessy"
