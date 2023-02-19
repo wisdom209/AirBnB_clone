@@ -30,38 +30,15 @@
 	opacity: 90%;
 }
 
-.locations, .amenities {
-	align-self: center;
-	position: relative;
-	padding-right: 5 px;
-	;
-	padding-bottom: 0;
-	margin: 0;
+.locations,
+.amenities {
 	translate: 0 65px;
-}
-
-.locations:hover,
-.amenities:hover{
-	/* translate: 0 65px; */
-}
-
-.locations_info,
-.amenities_info {
-	border-right: #DDDDDD 1px;
-	border-style: solid;
-	border-left: 0;
-	border-bottom: 0;
-	border-top: 0;
-	margin: 0;
-	padding: 0;
 }
 
 .locations h3,
 .locations h4,
 .amenities h3,
 .amenities h4 {
-	padding-left: 5px;
-	padding-right: 5px;
 	margin: 10px;
 }
 
@@ -74,6 +51,7 @@
 	border-style: solid;
 	height: auto;
 }
+
 .locations:hover .popover {
 	visibility: visible;
 	translate: 0 0 0 50px;
@@ -82,8 +60,6 @@
 
 .amenities .popover {
 	visibility: hidden;
-	background-color: #FAFAFA;
-	padding-bottom: 5px;
 	background-color: #FAFAFA;
 	padding-bottom: 5px;
 	border: #DDDDDD 1px;
@@ -96,8 +72,13 @@
 	transition: ease-in-out 5s;
 }
 
-.popover h2{
+.popover h2 {
 	padding-top: 10px;
 	padding-left: 5px;
 	font-size: 16px;
+}
+
+.vl {
+	border-right: 1px solid #DDDDDD;
+	height: 70px;
 }
