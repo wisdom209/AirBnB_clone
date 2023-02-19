@@ -1,4 +1,5 @@
 .filters {
+	position: relative;
 	flex: 1;
 	display: flex;
 	justify-content: flex-start;
@@ -10,6 +11,8 @@
 	border: 1px #DDDDDD;
 	border-radius: 4px;
 	border-style: solid;
+	margin: 0;
+	padding: 0;
 }
 
 .filters button {
@@ -27,74 +30,74 @@
 	opacity: 90%;
 }
 
-.locations,
-.amenities {
+.locations, .amenities {
 	align-self: center;
-	flex-grow: 0.1;
-	height: 100%;
-	width: 25%;
-	padding-left: 5px;
-	padding-bottom: 1px;
+	position: relative;
+	padding-right: 5 px;
+	;
+	padding-bottom: 0;
+	margin: 0;
+	translate: 0 65px;
 }
 
-.locations {
-	border-left: 0;
-	border-top: 0;
-	border-bottom: 0;
+.locations:hover,
+.amenities:hover{
+	/* translate: 0 65px; */
+}
+
+.locations_info,
+.amenities_info {
 	border-right: #DDDDDD 1px;
 	border-style: solid;
+	border-left: 0;
+	border-bottom: 0;
+	border-top: 0;
+	margin: 0;
+	padding: 0;
 }
 
 .locations h3,
-.amenities h3 {
-	font-weight: 600;
-}
-
 .locations h4,
+.amenities h3,
 .amenities h4 {
-	font-weight: 400;
-	font-size: 14px;
-}
-
-.popover {
-	flex: 1;
-	display: flex;
-	justify-content: flex-start;
-	align-items: center;
-	background-color: white;
-	height: 70px;
-	width: 100%;
-	max-width: 1000px;
-}
-
-.locations_drop {
-	background-color: #FAFAFA;
-	align-self: center;
-	flex-grow: 0.05;
-	height: 100%;
-	width: 25%;
 	padding-left: 5px;
-	padding-bottom: 1px;
+	padding-right: 5px;
+	margin: 10px;
 }
 
-.amenities_drop {
+.locations .popover {
+	visibility: hidden;
 	background-color: #FAFAFA;
-	align-self: center;
-	flex-grow: 0.05;
-	height: 100%;
-	width: 25%;
-	padding-left: 5px;
-	padding-bottom: 1px;
+	padding-bottom: 5px;
+	border: #DDDDDD 1px;
+	border-top: 0px;
+	border-style: solid;
+	height: auto;
+}
+.locations:hover .popover {
+	visibility: visible;
+	translate: 0 0 0 50px;
+	transition: ease-in-out 5s;
 }
 
-.locations_drop,
-.amenities_drop {
-	border: #DDDDDD 0.1px;
+.amenities .popover {
+	visibility: hidden;
+	background-color: #FAFAFA;
+	padding-bottom: 5px;
+	background-color: #FAFAFA;
+	padding-bottom: 5px;
+	border: #DDDDDD 1px;
+	border-top: 0px;
 	border-style: solid;
 }
 
-.locations_drop>div,
-.amenities_drop>div {
-	margin-top: 20px;
+.amenities:hover .popover {
+	visibility: visible;
+	transition: ease-in-out 5s;
 }
 
+.popover h2{
+	padding-top: 10px;
+	padding-left: 5px;
+	font-size: 16px;
+}
