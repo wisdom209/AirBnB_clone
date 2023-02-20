@@ -90,7 +90,6 @@
 }
 
 .number_bathrooms {
-	display: row;
 	flex-direction: column;
 	margin-left: 20px;
 	content: url('../images/bathroom.png');
@@ -120,8 +119,8 @@
 
 .article_head .amenities {
 	text-align: left;
-	margin-top: -70px;
-	margin-bottom: 70px;
+	margin-top: 5px;
+	margin-bottom: 5px;
 	font-size: 16px;
 }
 
@@ -138,17 +137,20 @@
 
 .article_head .amenities li:nth-child(1) .icon{
 	height: 20px;
+	margin-left: -40px;
 	padding-right: 5px;
 	content: url('../images/pet.png');
 }
 .article_head .amenities li:nth-child(2) .icon{
 	height: 20px;
 	padding-right: 5px;
+	margin-left: -40px;
 	content: url('../images/tv.png') ;
 }
 .article_head .amenities li:nth-child(3) .icon{
 	height: 20px;
 	padding-right: 5px;
+	margin-left: -40px;
 	content: url('../images/wifi.png');
 }
 

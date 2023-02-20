@@ -91,7 +91,6 @@
 }
 
 .number_bathrooms {
-	display: row;
 	flex-direction: column;
 	margin-left: 20px;
 	content: url('../images/bathroom.png');
@@ -245,7 +244,6 @@
 }
 
 .number_bathrooms {
-	display: row;
 	flex-direction: column;
 	margin-left: 20px;
 	content: url('../images/bathroom.png');

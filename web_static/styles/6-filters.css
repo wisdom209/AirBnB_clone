@@ -30,12 +30,14 @@
 	opacity: 90%;
 }
 
+/* move the position */
 .locations {
-	translate: 0 65px;
+	margin-top: 130px;
 }
 
+/* move the position */
 .amenities {
-	translate: 0 50px;
+	margin-top: 100px;
 }
 
 .locations h3,
@@ -55,9 +57,10 @@
 	height: auto;
 }
 
+/* move the position */
 .locations:hover .popover {
 	visibility: visible;
-	translate: 0 0 0 50px;
+	margin-top: 50px;
 	transition: ease-in-out 5s;
 }
 
@@ -97,4 +100,3 @@ ul {
 .amenities .popover ul {
 	padding-top: 12px;
 }
-

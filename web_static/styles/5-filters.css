@@ -29,10 +29,13 @@
 .filters button:hover {
 	opacity: 90%;
 }
-
-.locations,
+/* move the position */
+.locations
+{
+	margin-top: 130px;
+}
 .amenities {
-	translate: 0 65px;
+	margin-top: 195px;	
 }
 
 .locations h3,
@@ -51,10 +54,10 @@
 	border-style: solid;
 	height: auto;
 }
-
+/* move the position */
 .locations:hover .popover {
 	visibility: hidden;
-	translate: 0 0 0 50px;
+	margin-top: 50px;
 	transition: ease-in-out 5s;
 }
 
