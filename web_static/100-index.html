@@ -2,306 +2,242 @@
 <html lang="en">
 
 <head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>AirBnB Clone</title>
+	<link rel="shortcut icon" href="images/icon.png" type="image/x-icon">
+	<link rel="stylesheet" href="styles/4-common.css">
 	<link rel="stylesheet" href="styles/3-header.css">
 	<link rel="stylesheet" href="styles/3-footer.css">
-	<link rel="stylesheet" href="styles/4-common.css">
 	<link rel="stylesheet" href="styles/6-filters.css">
 	<link rel="stylesheet" href="styles/100-places.css">
-	<link rel="shortcut icon" type="image/x-icon" href="./images/icon.png" />
 </head>
 
 <body>
 	<header>
-		<div class="logo"></div>
+		<div></div>
 	</header>
-
 	<div class="container">
-		<div class="main">
-			<section class="filters">
-				<div class="locations">
-					<div class="locations_info">
-						<h3>States</h3>
-						<h4>Lorem ipsum dolor sit amet. </h4>
-					</div>
-					<div class="popover">
-						<div>
-							<h2>Arizona</h2>
-						</div>
-						<ul>
-							<li>Lorem.</li>
-							<li>Quisquam?</li>
-							<li>Accusamus.</li>
-							<li>Fugit?</li>
-						</ul>
-					</div>
-
+		<section class="filters">
+			<div class="locations">
+				<h3>States</h3>
+				<h4>California, Arizona ...</h4>
+				<div class="popover">
+					<ul>
+						<li><h2>Arizona:</h2></li>
+						<li>Page</li>
+						<li>Page 2</li>
+					</ul>
+					<ul>
+						<li><h2>California:</h2></li>
+						<li>San Francisco</li>
+						<li>Los Altos</li>
+					</ul>
 				</div>
-				<div class="vl"></div>
-				<div class="amenities">
-					<div class="amenities_info">
-						<h3>Amenities</h3>
-						<h4>Lorem ipsum dolor sit amet. </h4>
-					</div>
-					<div class="popover">
-						<!-- <div>
-							<h2>&nbsp;</h2>
-						</div> -->
-						<ul>
-							<li>Lorem.</li>
-							<li>Lorem.</li>
-							<li>Lorem.</li>
-							<li>Lorem.</li>
-						</ul>
-					</div>
-
+			</div>
+			<div class="amenities">
+				<h3>Amenities</h3>
+				<h4>Internet, Kitchen ...</h4>
+				<div class="popover">
+					<ul>
+						<li>Internet</li>
+						<li>TV</li>
+						<li>Kitchen</li>
+						<li>Iron</li>
+					</ul>
 				</div>
-				<button>Search</button>
-			</section>
-		</div>
+			</div>
+			<button>Search</button>
+		</section>
 		<section class="places">
 			<h1>Places</h1>
-			<article>
-				<div class="top_article">
-					<div class="article_head">
-						<div class="article_info">
-							<div>
-								<h2>My Home</h2>
-							</div>
-							<div class="price_by_night">
-								$80
-							</div>
+			<div>
+				<article>
+					<h2>My home</h2>
+					<div class="price_by_night">$80</div>
+					<div class="information">
+						<div class="max_guest">
+							<div></div>
+							<span>2 guests</span>
 						</div>
-						<div class="hl"></div>
-						<div class="information">
-							<div>
-								<div class="max_guest">
-								</div>
-								<span class="info_span">7&nbsp;guests</span>
-							</div>
-							<div>
-								<div class="number_rooms">
-								</div>
-								<span class="info_span">2&nbsp;bedrooms</span>
-							</div>
-							<div>
-								<div class="number_bathrooms">
-								</div>
-								<span class="info_span">4&nbsp;bathrooms</span>
-							</div>
+						<div class="number_rooms">
+							<div></div>
+							<span>1 Bedroom</span>
+						</div>
+						<div class="number_bathrooms">
+							<div></div><span>1 bathroom</span>
+						</div>
 
+					</div>
+					<div class="user">
+						<b>Owner</b>:&nbsp;
+						<span>Emmanuel</span>
+					</div>
+					<div class="description">
+						Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quisquam dicta sint tenetur veritatis
+						est! Eos itaque quasi soluta velit. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quam, sed?
+					</div>
+					<!-- Amenities list -->
+					<div class="amenities">
+						<h2>Amenities</h2>
+						<ul>
+							<li>
+								<div></div>
+								<span>TV</span>
+							</li>
+							<li>
+								<div></div>
+								<span>WiFi</span>
+							</li>
+							<li>
+								<div></div>
+								<span>Pet Friendly</span>
+							</li>
+						</ul>
+					</div>
+					<div class="reviews">
+						<h2>Reviews</h2>
+						<ul>
+							<li>
+								<h3>From Bob Dylan the 27th January 2017</h3>
+							</li>
+							<li>
+								<p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Totam numquam, officia
+									libero ipsum facilis a?</p>
+							</li>
+						</ul>
+					</div>
+				</article>
+				<article>
+					<h2>Tiny house</h2>
+					<div class="price_by_night">$65</div>
+					<div class="information">
+						<div class="max_guest">
+							<div></div>
+							<span>2 guests</span>
 						</div>
-						<div class="user">
-							<b>Owner:</b>
-							&nbsp;
-							<span>Susan</span>
+						<div class="number_rooms">
+							<div></div>
+							<span>1 Bedroom</span>
 						</div>
-						<div class="description">
-							<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime illum cum error optio ea
-								beatae tempora pariatur sunt mollitia et quisquam voluptates harum ipsum reprehenderit
-							</p>
-						</div>
-						<!-- Amenities -->
-						<div class="amenities">
-							<div>
-								<h2>Amenities</h2>
-							</div>
-							<div class="hl"></div>
-							<div>
-								<li>
-									<div class="icon"></div>
-									<div>pet</div>
-								</li>
-								<li>
-									<div class="icon"></div>
-									<div>tv</div>
-								</li>
-								<li>
-									<div class="icon"></div>
-									<div>wifi</div>
-								</li>
-							</div>
-						</div>
-						<!-- Reviews -->
-						<div class="reviews">
-							<div>
-								<h2>Reviews</h2>
-							</div>
-							<div class="hl"></div>
-							<div>
-								<h3>From Bob Dylan</h3>
-							</div>
-							<div>
-								<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam quod est qui
-									exercitationem cupiditate aliquam velit quia corporis tempore quam animi
-									voluptatibus commodi doloribus ipsa pariatur veniam expedita dolor quaerat enim,
-									maxime aut, nisi impedit? Facilis, atque soluta praesentium fugit natus dolor error
-									veniam sequi nihil temporibus alias quis laudantium.</p>
-							</div>
+						<div class="number_bathrooms">
+							<div></div>
+							<span>1 bathroom</span>
 						</div>
 					</div>
-					<div class="article_head">
-						<div class="article_info">
-							<div>
-								<h2>Tiny House</h2>
-							</div>
-							<div class="price_by_night">
-								$65
-							</div>
+					<div class="user">
+						<b>Owner</b>:&nbsp;
+						<span>Gloria</span>
+					</div>
+					<div class="description">
+						Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quisquam dicta sint tenetur veritatis
+						est! Eos itaque quasi soluta velit dolorum tempore adipisci ipsam totam corporis quisquam, odio
+						amet! Veritatis, alias?
+					</div>
+					<!-- Amenities list -->
+					<div class="amenities">
+						<h2>Amenities</h2>
+						<ul>
+							<li>
+								<div></div>
+								<span>TV</span>
+							</li>
+							<li>
+								<div></div>
+								<span>WiFi</span>
+							</li>
+							<li>
+								<div></div>
+								<span>Pet Friendly</span>
+							</li>
+						</ul>
+					</div>
+					<div class="reviews">
+						<h2>Reviews</h2>
+						<ul>
+							<li>
+								<h3>From Bob Dylan the 27th January 2017</h3>
+							</li>
+							<li>
+								<p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Totam numquam, officia
+									libero ipsum facilis a?</p>
+							</li>
+						</ul>
+						<ul>
+							<li>
+								<h3>From Bob Dylan the 27th January 2017</h3>
+							</li>
+							<li>
+								<p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Totam numquam, officia
+									libero ipsum facilis a?</p>
+							</li>
+						</ul>
+					</div>
+				</article>
+				<article>
+					<h2>A suite</h2>
+					<div class="price_by_night">$190</div>
+					<div class="information">
+						<div class="max_guest">
+							<div></div>
+							<span>2 guests</span>
 						</div>
-						<div class="hl"></div>
-						<div class="information">
-							<div>
-								<div class="max_guest">
-								</div>
-								<span class="info_span">7&nbsp;guests</span>
-							</div>
-							<div>
-								<div class="number_rooms">
-								</div>
-								<span class="info_span">2&nbsp;bedrooms</span>
-							</div>
-							<div>
-								<div class="number_bathrooms">
-								</div>
-								<span class="info_span">4&nbsp;bathrooms</span>
-							</div>
-
+						<div class="number_rooms">
+							<div></div>
+							<span>1 Bedroom</span>
 						</div>
-						<div class="user">
-							<b>Owner:</b>
-							&nbsp;
-							<span>Franklin</span>
-						</div>
-						<div class="description">
-							Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime illum cum error optio ea
-							beatae tempora pariatur sunt mollitia et quisquam voluptates harum ipsum reprehenderit
-							temporibus, fuga numquam quam recusandae in iure adipisci cupiditate. Reprehenderit nam
-							earum voluptatum provident officiis quia magni vero, odio, unde sapiente ex recusandae
-							cumque. Ducimus!
-						</div>
-						<!-- Amenities -->
-						<div class="amenities">
-							<div>
-								<h2>Amenities</h2>
-							</div>
-							<div class="hl"></div>
-							<div>
-								<li>
-									<div class="icon"></div>
-									<div>pet</div>
-								</li>
-								<li>
-									<div class="icon"></div>
-									<div>tv</div>
-								</li>
-								<li>
-									<div class="icon"></div>
-									<div>wifi</div>
-								</li>
-
-							</div>
-						</div>
-						<!-- Reviews -->
-						<div class="reviews">
-							<div>
-								<h2>Reviews</h2>
-							</div>
-							<div class="hl"></div>
-							<div>
-								<h3>From Bob Dylan</h3>
-							</div>
-							<div>
-								<p>Highly Recommended</p>
-							</div>
+						<div class="number_bathrooms">
+							<div></div>
+							<span>1 bathroom</span>
 						</div>
 					</div>
-				</div>
-				<div class="top_article">
-					<div class="article_head">
-						<div class="article_info">
-							<div>
-								<h2>Tiny House</h2>
-							</div>
-							<div class="price_by_night">
-								$65
-							</div>
-						</div>
-						<div class="hl"></div>
-						<div class="information">
-							<div>
-								<div class="max_guest">
-								</div>
-								<span class="info_span">7&nbsp;guests</span>
-							</div>
-							<div>
-								<div class="number_rooms">
-								</div>
-								<span class="info_span">2&nbsp;bedrooms</span>
-							</div>
-							<div>
-								<div class="number_bathrooms">
-								</div>
-								<span class="info_span">4&nbsp;bathrooms</span>
-							</div>
-
-						</div>
-						<div class="user">
-							<b>Owner:</b>
-							&nbsp;
-							<span>Franklin</span>
-						</div>
-						<div class="description">
-							Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime illum cum error optio ea
-							beatae tempora pariatur sunt mollitia et quisquam voluptates harum ipsum reprehenderit
-							temporibus, fuga numquam quam recusandae in iure adipisci cupiditate. Reprehenderit nam
-							earum voluptatum provident officiis quia magni vero, odio, unde sapiente ex recusandae
-							cumque. Ducimus!
-						</div>
-						<!-- Amenities -->
-						<div class="amenities">
-							<div>
-								<h2>Amenities</h2>
-							</div>
-							<div class="hl"></div>
-							<div>
-								<li>
-									<div class="icon"></div>
-									<div>pet</div>
-								</li>
-								<li>
-									<div class="icon"></div>
-									<div>tv</div>
-								</li>
-								<li>
-									<div class="icon"></div>
-									<div>wifi</div>
-								</li>
-							</div>
-						</div>
-						<!-- Reviews -->
-						<div class="reviews">
-							<div>
-								<h2>Reviews</h2>
-							</div>
-							<div class="hl"></div>
-							<div>
-								<h3>From Bob Dylan</h3>
-							</div>
-							<div>
-								<p>Highly Recommended</p>
-							</div>
-						</div>
+					<div class="user">
+						<b>Owner</b>:&nbsp;
+						<span>Gabrielle</span>
 					</div>
-				</div>
-			</article>
-
+					<div class="description">
+						Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quisquam dicta sint tenetur veritatis
+						est! Eos itaque quasi soluta velit dolorum tempore adipisci ipsam totam corporis quisquam, odio
+						amet! Veritatis, alias?
+					</div>
+					<!-- Amenities list -->
+					<div class="amenities">
+						<h2>Amenities</h2>
+						<ul>
+							<li>
+								<div></div>
+								<span>TV</span>
+							</li>
+							<li>
+								<div></div>
+								<span>WiFi</span>
+							</li>
+							<li>
+								<div></div>
+								<span>Pet Friendly</span>
+							</li>
+						</ul>
+					</div>
+					<div class="reviews">
+						<h2>Reviews</h2>
+						<ul>
+							<li>
+								<h3>From Bob Dylan the 27th January 2017</h3>
+							</li>
+							<li>
+								<p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Totam numquam, officia
+									libero ipsum facilis a?</p>
+							</li>
+						</ul>
+					</div>
+				</article>
+			</div>
 		</section>
+
 	</div>
-
-
 	<footer>
-		<span>Best School</span>
+		<div>Best School</div>
 	</footer>
 </body>
 
